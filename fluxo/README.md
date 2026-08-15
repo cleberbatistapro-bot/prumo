@@ -17,7 +17,8 @@ npm run db:seed:local
 npm run dev
 ```
 
-Abre em `http://localhost:8788`. Login de demonstração (senha única): `Prumo@123`
+Abre em `http://localhost:8788` — cai na **landing** (`public/index.html`). O app (login +
+telas) fica em `public/app.html`. Login de demonstração (senha única): `Prumo@123`
 - `ana@prumo.demo` — Assistente
 - `carla@prumo.demo` — Coordenador
 - `gerente@prumo.demo` — Gerente
@@ -50,6 +51,6 @@ Substituir `database_id` em `wrangler.toml` pelo id retornado, rodar as migraç�
 
 ## Próximo bloco
 
-Landing de 20 segundos (a tese antes do login) e, depois, ligar a Agenda como primeira
-plataforma-irmã de verdade via API — ver seção 5 do [mapa mestre](../mapa-mestre-prumo.md).
-Desempenho Individual (bloco 4) já está fechado.
+Ligar a Agenda como primeira plataforma-irmã de verdade via API (bloco 6) — ver seção 5 do
+[mapa mestre](../mapa-mestre-prumo.md). Blocos 1–5 (Espinha, Fluxo núcleo, corrente da
+tarefa, Desempenho Individual, Landing) já estão fechados.
