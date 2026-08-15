@@ -18,19 +18,19 @@
     --amber-rgb:227,179,65; --amber:#E3B341; --amber-dim:rgba(var(--amber-rgb),.13);
     --green-rgb:63,185,80; --green:#3FB950; --green-dim:rgba(var(--green-rgb),.13);
     --on-teal:#04211E; --card-grad-end:#12171E; --sidebar-bg:#0B0F14; --avatar-end:#0a8f81;
-    --shadow-1:rgba(0,0,0,.7); --shadow-2:rgba(0,0,0,.8); --topbar-bg:rgba(13,17,23,.85);
+    --shadow-1:rgba(0,0,0,.7); --shadow-2:rgba(0,0,0,.8); --card-shadow:none; --topbar-bg:rgba(13,17,23,.85);
     --radius:12px; --mono:'JetBrains Mono',monospace; --ui:'Inter',sans-serif;
   }
   :root[data-theme="light"]{
-    --bg:#F3F5F7; --surface:#FFFFFF; --surface-2:#F0F2F5; --surface-3:#E6E9ED;
-    --border:#D7DCE2;
+    --bg:#E4E9ED; --surface:#FFFFFF; --surface-2:#EDF1F4; --surface-3:#DEE4E9;
+    --border:#CBD3DA;
     --teal-rgb:0,120,107; --teal:#00786B; --teal-glow:rgba(var(--teal-rgb),.06);
     --text:#12181D; --muted:#4E5A64; --muted-2:#79838D;
     --red-rgb:179,38,30; --red:#B3261E;
     --amber-rgb:138,90,0; --amber:#8A5A00;
     --green-rgb:31,122,61; --green:#1F7A3D;
-    --on-teal:#FFFFFF; --card-grad-end:#FAFBFC; --sidebar-bg:#EDF0F3; --avatar-end:#00655A;
-    --shadow-1:rgba(15,23,32,.10); --shadow-2:rgba(15,23,32,.16); --topbar-bg:rgba(255,255,255,.82);
+    --on-teal:#FFFFFF; --card-grad-end:#FAFBFC; --sidebar-bg:#DBE1E6; --avatar-end:#00655A;
+    --shadow-1:rgba(15,23,32,.10); --shadow-2:rgba(15,23,32,.16); --card-shadow:0 1px 3px rgba(15,23,32,.08),0 1px 2px rgba(15,23,32,.06); --topbar-bg:rgba(228,233,237,.85);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   body{background:var(--bg);color:var(--text);font-family:var(--ui);-webkit-font-smoothing:antialiased;font-size:15px;line-height:1.5;transition:background .15s,color .15s}
@@ -125,7 +125,7 @@
   .rail .track::after{content:"";position:absolute;right:-1px;top:-3px;border-left:7px solid var(--border);border-top:4px solid transparent;border-bottom:4px solid transparent}
   .line{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;align-items:start}
   @media(max-width:860px){.line{grid-auto-flow:column;grid-template-columns:none;grid-auto-columns:80%;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px}.stage{scroll-snap-align:start}}
-  .stage{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px;min-height:120px}
+  .stage{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px;min-height:120px;box-shadow:var(--card-shadow)}
   .stage.bottleneck{border-color:rgba(var(--red-rgb),.4);box-shadow:0 0 0 1px rgba(var(--red-rgb),.15),0 8px 24px -12px rgba(var(--red-rgb),.4)}
   .stage-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--border)}
   .stage-name{font-size:12.5px;font-weight:700;display:flex;align-items:center;gap:7px}
@@ -168,7 +168,7 @@
   .view-head{margin-bottom:18px}
   .view-head h2{font-size:18px;font-weight:800;letter-spacing:-.01em}
   .view-head p{font-size:12px;color:var(--muted);font-family:var(--mono);margin-top:3px}
-  .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius)}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--card-shadow)}
 
   /* ===== AUDITORIA ===== */
   .audit-toolbar{display:flex;align-items:center;gap:10px;margin-bottom:14px}
@@ -208,7 +208,7 @@
   .sister .s-title{font-size:14px;font-weight:700;color:var(--teal);margin-bottom:3px}
   .sister .s-text{font-size:12.5px;color:var(--muted);line-height:1.55;max-width:74ch}
   .tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
-  .tool-card{background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:15px}
+  .tool-card{background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:15px;box-shadow:var(--card-shadow)}
   .tool-card .tc-head{display:flex;align-items:center;gap:10px;margin-bottom:8px}
   .tool-card .tc-ico{width:32px;height:32px;border-radius:9px;background:var(--teal-dim);border:1px solid var(--teal-line);display:grid;place-items:center;color:var(--teal)}
   .tool-card .tc-ico svg{width:16px;height:16px}
