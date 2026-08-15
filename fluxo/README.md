@@ -34,6 +34,10 @@ Abre em `http://localhost:8788`. Login de demonstração (senha única): `Prumo@
 - "Adicionar tarefa" grava direto no D1 e aparece na linha de todo mundo na hora.
 - Assistente só vê as tarefas em que é o responsável atual da corrente — filtro aplicado no
   servidor (`/api/tasks`), não escondido na tela.
+- Desempenho Individual com dados reais: `performance_monthly` + `attendance_days` no D1.
+  A "média dela" (baseline) é calculada no servidor como a média dos 5 meses anteriores ao
+  atual — nunca comparação entre colegas. Só Gerente acessa (`/api/performance`), com
+  tentativa negada gravada na auditoria como qualquer outra.
 
 ## Antes do primeiro deploy real
 
@@ -48,3 +52,4 @@ Substituir `database_id` em `wrangler.toml` pelo id retornado, rodar as migraç�
 
 Landing de 20 segundos (a tese antes do login) e, depois, ligar a Agenda como primeira
 plataforma-irmã de verdade via API — ver seção 5 do [mapa mestre](../mapa-mestre-prumo.md).
+Desempenho Individual (bloco 4) já está fechado.
