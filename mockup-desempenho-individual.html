@@ -4,27 +4,50 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Desempenho Individual — Mockup Prumo</title>
+<script>(function(){try{var t=localStorage.getItem('prumo-theme');if(!t)t=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#0D1117; --surface:#161B22; --surface-2:#1C2128; --surface-3:#21262D;
-    --border:#30363D; --teal:#00E7D1; --teal-dim:rgba(0,231,209,.12); --teal-line:rgba(0,231,209,.35);
+    --border:#30363D;
+    --teal-rgb:0,231,209; --teal:#00E7D1; --teal-dim:rgba(var(--teal-rgb),.12); --teal-line:rgba(var(--teal-rgb),.35); --teal-glow:rgba(var(--teal-rgb),.08);
     --text:#E6EDF3; --muted:#8B949E; --muted-2:#6E7681;
-    --red:#F85149; --red-dim:rgba(248,81,73,.13);
-    --amber:#E3B341; --amber-dim:rgba(227,179,65,.13);
-    --green:#3FB950; --green-dim:rgba(63,185,80,.13);
+    --red-rgb:248,81,73; --red:#F85149; --red-dim:rgba(var(--red-rgb),.13);
+    --amber-rgb:227,179,65; --amber:#E3B341; --amber-dim:rgba(var(--amber-rgb),.13);
+    --green-rgb:63,185,80; --green:#3FB950; --green-dim:rgba(var(--green-rgb),.13);
+    --on-teal:#04211E; --card-grad-end:#12171E; --sidebar-bg:#0B0F14; --avatar-end:#0a8f81;
+    --shadow-1:rgba(0,0,0,.7); --shadow-2:rgba(0,0,0,.8);
     --radius:12px; --mono:'JetBrains Mono',monospace; --ui:'Inter',sans-serif;
   }
+  :root[data-theme="light"]{
+    --bg:#F3F5F7; --surface:#FFFFFF; --surface-2:#F0F2F5; --surface-3:#E6E9ED;
+    --border:#D7DCE2;
+    --teal-rgb:0,120,107; --teal:#00786B; --teal-glow:rgba(var(--teal-rgb),.06);
+    --text:#12181D; --muted:#4E5A64; --muted-2:#79838D;
+    --red-rgb:179,38,30; --red:#B3261E;
+    --amber-rgb:138,90,0; --amber:#8A5A00;
+    --green-rgb:31,122,61; --green:#1F7A3D;
+    --on-teal:#FFFFFF; --card-grad-end:#FAFBFC; --sidebar-bg:#EDF0F3; --avatar-end:#00655A;
+    --shadow-1:rgba(15,23,32,.10); --shadow-2:rgba(15,23,32,.16);
+  }
   *{box-sizing:border-box;margin:0;padding:0}
-  body{background:var(--bg);color:var(--text);font-family:var(--ui);-webkit-font-smoothing:antialiased;font-size:15px;line-height:1.5}
-  ::selection{background:var(--teal);color:#04211E}
+  body{background:var(--bg);color:var(--text);font-family:var(--ui);-webkit-font-smoothing:antialiased;font-size:15px;line-height:1.5;transition:background .15s,color .15s}
+  ::selection{background:var(--teal);color:var(--on-teal)}
   button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+  .brand-mark svg{stroke:var(--teal)}
+  .top-right{margin-left:auto;display:flex;align-items:center;gap:12px}
+  .theme-toggle{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:9px;border:1px solid var(--border);color:var(--muted)}
+  .theme-toggle:hover{color:var(--text);border-color:var(--muted-2)}
+  .theme-toggle svg{width:16px;height:16px}
+  .theme-toggle .i-sun{display:none}
+  :root[data-theme="light"] .theme-toggle .i-moon{display:none}
+  :root[data-theme="light"] .theme-toggle .i-sun{display:block}
 
   #app{display:grid;min-height:100vh;grid-template-columns:230px 1fr}
   @media(max-width:860px){#app{grid-template-columns:1fr}}
-  .sidebar{background:#0B0F14;border-right:1px solid var(--border);padding:18px 12px;position:sticky;top:0;height:100vh;overflow-y:auto}
+  .sidebar{background:var(--sidebar-bg);border-right:1px solid var(--border);padding:18px 12px;position:sticky;top:0;height:100vh;overflow-y:auto}
   @media(max-width:860px){.sidebar{display:none}}
   .side-brand{display:flex;align-items:center;gap:10px;padding:4px 8px 14px}
   .brand-mark{width:28px;height:28px;border-radius:8px;background:var(--teal-dim);border:1px solid var(--teal-line);display:grid;place-items:center}
@@ -39,8 +62,8 @@
   .main{display:flex;flex-direction:column;min-width:0}
   .topbar{display:flex;align-items:center;gap:16px;padding:13px 24px;border-bottom:1px solid var(--border)}
   .page-title{font-size:16px;font-weight:700}.page-title small{display:block;font-size:11px;color:var(--muted);font-family:var(--mono)}
-  .user-chip{margin-left:auto;display:flex;align-items:center;gap:9px;padding:5px 10px 5px 6px;border:1px solid var(--border);border-radius:30px}
-  .avatar{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--teal),#0a8f81);display:grid;place-items:center;color:#04211E;font-weight:700;font-size:12px;font-family:var(--mono)}
+  .user-chip{display:flex;align-items:center;gap:9px;padding:5px 10px 5px 6px;border:1px solid var(--border);border-radius:30px}
+  .avatar{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--avatar-end));display:grid;place-items:center;color:var(--on-teal);font-weight:700;font-size:12px;font-family:var(--mono)}
   .u-name{font-size:12.5px;font-weight:600;line-height:1.1}.u-role{font-size:10.5px;color:var(--muted);font-family:var(--mono)}
 
   .content{padding:22px 24px 40px;max-width:1120px}
@@ -59,19 +82,19 @@
 
   /* person header */
   .person{display:flex;align-items:center;gap:14px;margin-bottom:18px}
-  .person .p-av{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;font-family:var(--mono);font-weight:700;font-size:18px;color:#04211E;background:linear-gradient(135deg,var(--teal),#0a8f81)}
+  .person .p-av{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;font-family:var(--mono);font-weight:700;font-size:18px;color:var(--on-teal);background:linear-gradient(135deg,var(--teal),var(--avatar-end))}
   .person .p-name{font-size:19px;font-weight:800;letter-spacing:-.01em}
   .person .p-role{font-family:var(--mono);font-size:12px;color:var(--muted)}
   .sit-badge{margin-left:auto;display:flex;align-items:center;gap:8px;padding:8px 14px;border-radius:10px;font-size:12.5px;font-weight:700;font-family:var(--mono)}
   .sit-badge .d{width:8px;height:8px;border-radius:50%}
-  .sit-badge.red{background:var(--red-dim);color:var(--red);border:1px solid rgba(248,81,73,.3)}
-  .sit-badge.green{background:var(--green-dim);color:var(--green);border:1px solid rgba(63,185,80,.3)}
+  .sit-badge.red{background:var(--red-dim);color:var(--red);border:1px solid rgba(var(--red-rgb),.3)}
+  .sit-badge.green{background:var(--green-dim);color:var(--green);border:1px solid rgba(var(--green-rgb),.3)}
   .sit-badge.teal{background:var(--teal-dim);color:var(--teal);border:1px solid var(--teal-line)}
 
   /* signal callout */
   .signal{display:flex;gap:14px;align-items:flex-start;border-radius:12px;padding:16px 18px;margin-bottom:22px}
-  .signal.red{background:linear-gradient(90deg,var(--red-dim),transparent);border:1px solid rgba(248,81,73,.3);border-left:3px solid var(--red)}
-  .signal.green{background:linear-gradient(90deg,var(--green-dim),transparent);border:1px solid rgba(63,185,80,.3);border-left:3px solid var(--green)}
+  .signal.red{background:linear-gradient(90deg,var(--red-dim),transparent);border:1px solid rgba(var(--red-rgb),.3);border-left:3px solid var(--red)}
+  .signal.green{background:linear-gradient(90deg,var(--green-dim),transparent);border:1px solid rgba(var(--green-rgb),.3);border-left:3px solid var(--green)}
   .signal.teal{background:linear-gradient(90deg,var(--teal-dim),transparent);border:1px solid var(--teal-line);border-left:3px solid var(--teal)}
   .signal .s-ico{flex-shrink:0;width:22px;height:22px;margin-top:1px}
   .signal.red .s-ico{color:var(--red)}.signal.green .s-ico{color:var(--green)}.signal.teal .s-ico{color:var(--teal)}
@@ -82,7 +105,7 @@
   .signal .s-actions{display:flex;gap:9px;margin-top:13px;flex-wrap:wrap}
   .s-btn{padding:8px 14px;border-radius:8px;font-size:12.5px;font-weight:700;border:1px solid var(--border);display:flex;align-items:center;gap:7px}
   .s-btn svg{width:14px;height:14px}
-  .s-btn.primary{background:var(--teal);color:#04211E;border-color:var(--teal)}
+  .s-btn.primary{background:var(--teal);color:var(--on-teal);border-color:var(--teal)}
   .s-btn.primary:hover{filter:brightness(1.08)}
   .s-btn.ghost{color:var(--muted)}.s-btn.ghost:hover{color:var(--text);border-color:var(--muted-2)}
 
@@ -101,8 +124,8 @@
   .k-delta.amber{background:var(--amber-dim);color:var(--amber)}
   .k-delta.green{background:var(--green-dim);color:var(--green)}
   .k-delta.neutral{background:var(--surface-3);color:var(--muted)}
-  .kpi.flag-red{border-color:rgba(248,81,73,.35)}
-  .kpi.flag-green{border-color:rgba(63,185,80,.3)}
+  .kpi.flag-red{border-color:rgba(var(--red-rgb),.35)}
+  .kpi.flag-green{border-color:rgba(var(--green-rgb),.3)}
 
   /* charts row */
   .charts{display:grid;grid-template-columns:1.5fr 1fr;gap:16px}
@@ -134,7 +157,7 @@
 <body>
 <div id="app">
   <aside class="sidebar">
-    <div class="side-brand"><div class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#00E7D1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></div><div class="brand-name">Prumo</div></div>
+    <div class="side-brand"><div class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style="color:var(--teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></div><div class="brand-name">Prumo</div></div>
     <div class="nav-label">Operação</div>
     <div class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h6M4 12h16M14 18h6"/><circle cx="14" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="10" cy="18" r="2"/></svg><span>Linha de Produção</span></div>
     <div class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg><span>Metas do mês</span></div>
@@ -146,7 +169,10 @@
   <div class="main">
     <div class="topbar">
       <div class="page-title">Desempenho individual<small>visão do gestor</small></div>
-      <div class="user-chip"><div class="avatar">GE</div><div><div class="u-name">Você</div><div class="u-role">Gerente</div></div></div>
+      <div class="top-right">
+        <button class="theme-toggle" onclick="toggleTheme()" title="Alternar tema" aria-label="Alternar tema claro/escuro"><svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></button>
+        <div class="user-chip"><div class="avatar">GE</div><div><div class="u-name">Você</div><div class="u-role">Gerente</div></div></div>
+      </div>
     </div>
 
     <div class="content">
@@ -298,6 +324,12 @@ function buildPonto(p){
     g+=`<circle cx="${xFor(i)}" cy="${yFor(d)}" r="3.5" fill="${col}"/>`;
   });
   return `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">${g}</svg>`;
+}
+
+function toggleTheme(){
+  const next = document.documentElement.getAttribute("data-theme")==="light" ? "dark" : "light";
+  document.documentElement.setAttribute("data-theme", next);
+  try{ localStorage.setItem("prumo-theme", next); }catch(e){}
 }
 
 let current="diana";

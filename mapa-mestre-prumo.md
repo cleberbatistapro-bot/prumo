@@ -66,6 +66,7 @@ O sistema não é um app monolítico. São **plataformas-irmãs** que compartilh
 - **RBAC** — cargos: Assistente, Coordenador(a), Gerente + Admin de sistema (invisível ao negócio). Autorização verificada **no servidor**, sempre.
 - **Auditoria** — log imutável de quem acessou o quê e quando.
 - **Segurança/LGPD** — menor privilégio, minimização de dados, queries parametrizadas, HTTPS, segredos em variáveis de ambiente.
+- **Tema claro/escuro** — todo o sistema (não só o Fluxo) precisa dos dois temas, com o claro construído de verdade (contraste real, cores distintas — não uma versão esbranquiçada do escuro). *(Adicionado em 15/08/2026, fora do desenho original; decisão tomada durante a Fase 0.)*
 
 ### Fluxo (o coração)
 - **Linha de produção horizontal** — etapas início → fim, tarefas fluindo da esquerda pra direita.
