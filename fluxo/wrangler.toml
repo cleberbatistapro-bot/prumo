@@ -11,3 +11,9 @@ pages_build_output_dir = "public"
 binding = "DB"
 database_name = "prumo-fluxo-db"
 database_id = "local-dev-placeholder"
+
+# Contrato com a plataforma-irmã Agenda — só isso, nenhum acesso ao banco dela.
+# Em produção, AGENDA_SHARED_KEY vira secret (`wrangler pages secret put`), nunca [vars].
+[vars]
+AGENDA_URL = "http://localhost:8790"
+AGENDA_SHARED_KEY = "prumo-dev-shared-key"

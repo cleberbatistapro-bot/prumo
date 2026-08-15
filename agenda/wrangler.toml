@@ -1,0 +1,16 @@
+name = "prumo-agenda"
+compatibility_date = "2024-09-23"
+pages_build_output_dir = "public"
+
+# Banco próprio da Agenda — isolamento de falhas: nada aqui é compartilhado com o Fluxo.
+# database_id abaixo é placeholder de dev local. Antes do deploy real:
+#   npx wrangler d1 create prumo-agenda-db
+[[d1_databases]]
+binding = "DB"
+database_name = "prumo-agenda-db"
+database_id = "local-dev-placeholder"
+
+# Chave compartilhada só entre as irmãs (o "contrato"). Em produção, sobrescrever com
+# `wrangler pages secret put AGENDA_SHARED_KEY`. Valor abaixo é só o default de demo local.
+[vars]
+AGENDA_SHARED_KEY = "prumo-dev-shared-key"

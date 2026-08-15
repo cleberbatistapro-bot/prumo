@@ -298,6 +298,27 @@
   .guardrail svg{width:17px;height:17px;color:var(--teal);flex-shrink:0}
   .guardrail p{font-size:12px;color:var(--muted);line-height:1.5}
   .guardrail b{color:var(--text)}
+
+  /* ===== TOOLBOX (plataforma-irmã) ===== */
+  .sister{display:flex;gap:12px;align-items:flex-start;background:linear-gradient(90deg,var(--teal-dim),transparent);border:1px solid var(--teal-line);border-left:3px solid var(--teal);border-radius:12px;padding:15px 17px;margin-bottom:20px}
+  .sister svg{width:20px;height:20px;color:var(--teal);flex-shrink:0;margin-top:1px}
+  .sister .s-title{font-size:14px;font-weight:700;color:var(--teal);margin-bottom:3px}
+  .sister .s-text{font-size:12.5px;color:var(--muted);line-height:1.55;max-width:74ch}
+  .tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+  .tool-card{background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:15px;box-shadow:var(--card-shadow)}
+  .tool-card .tc-head{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+  .tool-card .tc-ico{width:32px;height:32px;border-radius:9px;background:var(--teal-dim);border:1px solid var(--teal-line);display:grid;place-items:center;color:var(--teal)}
+  .tool-card .tc-ico svg{width:16px;height:16px}
+  .tool-card .tc-name{font-size:13.5px;font-weight:700}
+  .tool-card .tc-desc{font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:12px;min-height:36px}
+  .tool-card .tc-status{font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:2px 8px;border-radius:20px;margin-left:auto}
+  .tc-status.on{background:var(--green-dim);color:var(--green)}
+  .tc-status.soon{background:var(--surface-3);color:var(--muted-2)}
+  .tc-status.off{background:var(--red-dim);color:var(--red)}
+  .agenda-events{border-top:1px solid var(--border);margin-top:4px;padding-top:10px}
+  .agenda-events .ae-row{display:flex;gap:9px;align-items:baseline;font-size:12px;padding:4px 0;color:var(--text)}
+  .agenda-events .ae-time{font-family:var(--mono);font-size:10.5px;color:var(--teal);flex-shrink:0}
+  .agenda-empty{font-size:12px;color:var(--muted-2);font-family:var(--mono);padding:6px 0}
 </style>
 </head>
 <body>
@@ -351,12 +372,16 @@ const NAV = [
   { grp: "Administração" },
   { id: "auditoria", label: "Auditoria", icon: "shield", roles: ["gerente"] },
   { id: "usuarios", label: "Usuários & Acessos", icon: "users", roles: ["gerente"] },
+  { grp: "Plataforma-irmã" },
+  { id: "toolbox", label: "Toolbox", icon: "tool", roles: ["assistente","coordenador","gerente"] },
 ];
 const ICONS = {
   flow:'<path d="M4 6h6M4 12h16M14 18h6"/><circle cx="14" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="10" cy="18" r="2"/>',
   shield:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
   users:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/>',
   trend:'<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',
+  tool:'<path d="M14.7 6.3a4 4 0 0 1-5.4 5.4L4 17v3h3l5.3-5.3a4 4 0 0 1 5.4-5.4l-2.6 2.6-1.4-1.4z"/>',
+  calendar:'<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',
 };
 const svg=(n)=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICONS[n]}</svg>`;
 const lockIcon='<svg class="lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>';
@@ -365,6 +390,7 @@ const TITLES = {
   desempenho: ["Desempenho individual", "a régua da própria média — nunca ranking entre colegas"],
   auditoria: ["Auditoria", "registro imutável de acessos e ações — dados reais do D1"],
   usuarios: ["Usuários & Acessos", "o cargo define o que cada pessoa pode fazer (RBAC no servidor)"],
+  toolbox: ["Toolbox", "plataforma-irmã de ferramentas — banco e deploy próprios"],
 };
 const initials=(name)=>name.trim().split(/\s+/).map(w=>w[0]).slice(0,2).join("").toUpperCase();
 
@@ -407,6 +433,50 @@ async function viewAuditoria(){
     }).join("");
     return `<div class="card audit-list">${html}</div>`;
   }catch(e){ return restricted(); }
+}
+
+const TOOLS = [
+  { key:"agenda", nome:"Agenda", desc:"Agenda pessoal e de equipe — a primeira plataforma-irmã plugada de verdade.", live:true },
+  { nome:"Proc Fácil", desc:"Consolida várias planilhas em uma só, com um clique." },
+  { nome:"Organizador de Arquivos", desc:"Padroniza e organiza pastas e entregas automaticamente." },
+  { nome:"Renomeador", desc:"Renomeia arquivos em lote seguindo uma regra." },
+  { nome:"Dash Top", desc:"Gera dashboards e relatórios a partir dos seus dados." },
+];
+
+async function viewToolbox(){
+  let agendaHtml = `<div class="agenda-empty">Carregando…</div>`;
+  try{
+    const data = await api("/api/agenda");
+    if(!data.available){
+      agendaHtml = `<div class="agenda-empty">Indisponível agora — a Agenda é uma plataforma separada; se ela cai, o Fluxo segue funcionando.</div>`;
+    } else if(!data.events.length){
+      agendaHtml = `<div class="agenda-empty">Sem eventos futuros nos próximos dias.</div>`;
+    } else {
+      agendaHtml = `<div class="agenda-events">${data.events.map(e=>{
+        const d = new Date(e.start_at);
+        const time = d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'})+' · '+d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+        return `<div class="ae-row"><span class="ae-time">${time}</span><span>${e.title}</span></div>`;
+      }).join("")}</div>`;
+    }
+  }catch(e){
+    agendaHtml = `<div class="agenda-empty">Indisponível agora.</div>`;
+  }
+
+  const cards = TOOLS.map(t=>{
+    const status = t.live ? '<span class="tc-status on">em uso</span>' : '<span class="tc-status soon">em breve</span>';
+    const body = t.live ? agendaHtml : "";
+    return `<div class="tool-card">
+      <div class="tc-head"><div class="tc-ico">${svg(t.key==='agenda'?'calendar':'tool')}</div><div class="tc-name">${t.nome}</div>${status}</div>
+      <div class="tc-desc">${t.desc}</div>
+      ${body}
+    </div>`;
+  }).join("");
+
+  return `
+    <div class="sister">${svg('shield')}
+      <div><div class="s-title">Plataforma à parte — por isolamento de falhas</div><div class="s-text">A Agenda vive numa plataforma-irmã separada do Fluxo: banco e deploy próprios, comunicação só por API com uma chave de contrato. Os eventos acima vieram de um banco D1 diferente, chamado a partir do servidor do Fluxo — não do seu navegador.</div></div>
+    </div>
+    <div class="tools-grid">${cards}</div>`;
 }
 
 async function viewUsuarios(){
@@ -700,7 +770,7 @@ async function render(){
   document.getElementById("pageTitle").innerHTML = `${tt}<small>${ts}</small>`;
   const foundation = view==="fluxo" ? "" : `<div class="foundation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg><div><div class="f-title">Fase 0 — Espinha, dados reais</div><div class="f-text">Login, RBAC e auditoria acima já rodam contra um banco D1 de verdade — sem mock. Cada tentativa de acesso (permitida ou negada) vira uma linha nesta auditoria.</div></div></div>`;
   const heading = view==="fluxo" ? "" : `<div class="view-head"><h2>${tt}</h2><p>${ts}</p></div>`;
-  let content = view==="auditoria" ? await viewAuditoria() : view==="usuarios" ? await viewUsuarios() : view==="desempenho" ? await viewDesempenho() : await viewFluxo();
+  let content = view==="auditoria" ? await viewAuditoria() : view==="usuarios" ? await viewUsuarios() : view==="desempenho" ? await viewDesempenho() : view==="toolbox" ? await viewToolbox() : await viewFluxo();
   document.getElementById("content").innerHTML = foundation + heading + content + `<div class="footer-note">Fase 0 — Espinha · dados de demonstração · identidade <span>Prumo</span></div>`;
   document.getElementById("btnAddTask")?.addEventListener("click", openAddTask);
 }

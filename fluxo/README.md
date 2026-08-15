@@ -49,8 +49,15 @@ npx wrangler d1 create prumo-fluxo-db
 Substituir `database_id` em `wrangler.toml` pelo id retornado, rodar as migrações com
 `--remote` e então `npm run deploy`.
 
+## Toolbox — Agenda plugada
+
+O Toolbox chama a plataforma-irmã [Agenda](../agenda/README.md) a partir de
+`functions/api/agenda.ts` (server-side, a chave de contrato nunca chega ao navegador). Se a
+Agenda cair, a tela mostra "indisponível" — testado de verdade derrubando o servidor da
+Agenda com o Fluxo no ar.
+
 ## Próximo bloco
 
-Ligar a Agenda como primeira plataforma-irmã de verdade via API (bloco 6) — ver seção 5 do
-[mapa mestre](../mapa-mestre-prumo.md). Blocos 1–5 (Espinha, Fluxo núcleo, corrente da
-tarefa, Desempenho Individual, Landing) já estão fechados.
+Dados demo + acabamento visual (bloco 7, fecha a Fase Recrutador) — ver seção 5 do
+[mapa mestre](../mapa-mestre-prumo.md). Blocos 1–6 (Espinha, Fluxo núcleo, corrente da
+tarefa, Desempenho Individual, Landing, Agenda plugada) já estão fechados.
