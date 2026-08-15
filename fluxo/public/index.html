@@ -108,6 +108,113 @@
 
   .footer-note{text-align:center;color:var(--muted-2);font-size:11px;padding:24px 0 0;font-family:var(--mono)}
   .footer-note span{color:var(--teal)}
+
+  /* ===== FLUXO ===== */
+  .flow-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:16px}
+  .status-chips{display:flex;gap:8px;margin-left:auto;flex-wrap:wrap}
+  .chip{display:flex;align-items:center;gap:7px;padding:6px 11px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid var(--border);font-family:var(--mono)}
+  .chip .n{font-size:13px}
+  .chip.red{background:var(--red-dim);border-color:rgba(248,81,73,.3);color:var(--red)}
+  .chip.amber{background:var(--amber-dim);border-color:rgba(227,179,65,.3);color:var(--amber)}
+  .chip.green{background:var(--green-dim);border-color:rgba(63,185,80,.3);color:var(--green)}
+  .chip .swatch{width:8px;height:8px;border-radius:50%}
+  .add-btn{display:flex;align-items:center;gap:7px;background:var(--teal);color:#04211E;font-weight:700;font-size:12.5px;padding:8px 14px;border-radius:8px;white-space:nowrap}
+  .add-btn:hover{filter:brightness(1.08)}
+  .add-btn svg{width:14px;height:14px}
+  .gargalo{display:flex;align-items:center;gap:11px;background:linear-gradient(90deg,var(--red-dim),transparent);border:1px solid rgba(248,81,73,.3);border-left:3px solid var(--red);border-radius:10px;padding:11px 14px;margin-bottom:18px}
+  .gargalo svg{width:18px;height:18px;color:var(--red);flex-shrink:0}
+  .gargalo .g-txt{font-size:13px}.gargalo .g-txt b{color:var(--red)}
+  .rail{display:flex;align-items:center;gap:12px;margin-bottom:10px;padding:0 2px}
+  .rail .end{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-2)}
+  .rail .track{flex:1;height:2px;background:linear-gradient(90deg,var(--teal-line),var(--border));border-radius:2px}
+  .line{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;align-items:start}
+  @media(max-width:860px){.line{grid-auto-flow:column;grid-template-columns:none;grid-auto-columns:80%;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px}.stage{scroll-snap-align:start}}
+  .stage{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px;min-height:120px}
+  .stage.bottleneck{border-color:rgba(248,81,73,.4);box-shadow:0 0 0 1px rgba(248,81,73,.15),0 8px 24px -12px rgba(248,81,73,.4)}
+  .stage-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+  .stage-name{font-size:12.5px;font-weight:700;display:flex;align-items:center;gap:7px}
+  .stage-count{font-family:var(--mono);font-size:12px;color:var(--muted);background:var(--surface-2);padding:2px 8px;border-radius:20px}
+  .stage.bottleneck .stage-count{background:var(--red-dim);color:var(--red)}
+  .bneck-flag{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--red);background:var(--red-dim);padding:2px 6px;border-radius:5px}
+  .task{position:relative;background:var(--surface-2);border:1px solid var(--border);border-radius:9px;padding:11px 12px 11px 14px;margin-bottom:9px;overflow:hidden;cursor:pointer;transition:.15s}
+  .task:last-child{margin-bottom:0}
+  .task:hover{border-color:var(--teal-line);transform:translateY(-1px)}
+  .task .band{position:absolute;left:0;top:0;bottom:0;width:3px}
+  .task.red .band{background:var(--red)}.task.amber .band{background:var(--amber)}.task.green .band{background:var(--green)}
+  .task .t-title{font-size:13px;font-weight:600;line-height:1.3;margin-bottom:8px;padding-right:14px}
+  .t-meta{display:flex;align-items:center;gap:9px;margin-bottom:9px}
+  .stack{display:flex}
+  .stack .stk{width:19px;height:19px;border-radius:50%;display:grid;place-items:center;font-size:8px;font-weight:700;font-family:var(--mono);background:var(--surface-3);color:var(--muted);border:2px solid var(--surface-2);margin-left:-6px}
+  .stack .stk:first-child{margin-left:0}
+  .stack .stk.done{background:rgba(63,185,80,.2);color:var(--green)}
+  .stack .stk.current{background:rgba(227,179,65,.22);color:var(--amber);box-shadow:0 0 0 2px var(--amber)}
+  .stack .stk.late{background:rgba(248,81,73,.22);color:var(--red);box-shadow:0 0 0 2px var(--red);z-index:2}
+  .t-tool{font-family:var(--mono);font-size:9.5px;color:var(--teal);border:1px solid var(--teal-line);padding:1px 6px;border-radius:5px;margin-left:auto}
+  .t-foot{display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .countdown{font-family:var(--mono);font-size:11px;font-weight:700;display:flex;align-items:center;gap:5px}
+  .countdown svg{width:12px;height:12px}
+  .task.red .countdown{color:var(--red)}.task.amber .countdown{color:var(--amber)}.task.green .countdown{color:var(--green)}
+  .prazo-date{font-family:var(--mono);font-size:10px;color:var(--muted-2)}
+  .timebar{height:3px;background:var(--surface-3);border-radius:3px;margin-top:9px;overflow:hidden}
+  .timebar .fill{height:100%;border-radius:3px}
+  .task.red .fill{background:var(--red)}.task.amber .fill{background:var(--amber)}.task.green .fill{background:var(--green)}
+  .task.done{opacity:.62}.task.done .band{background:var(--teal)}.task.done .countdown{color:var(--teal)}
+  .legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:20px;padding:13px 16px;background:var(--surface);border:1px solid var(--border);border-radius:10px}
+  .legend .l-item{display:flex;align-items:center;gap:8px;font-size:11.5px;color:var(--muted)}
+  .legend .l-item .sw{width:10px;height:10px;border-radius:3px}
+  .legend .l-item b{color:var(--text);font-weight:600}
+  .legend .l-title{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-2);align-self:center}
+  .board-empty{color:var(--muted-2);font-family:var(--mono);font-size:12px;text-align:center;padding:40px 0}
+
+  /* ===== MODAIS (corrente + adicionar tarefa) ===== */
+  .overlay{position:fixed;inset:0;z-index:60;background:rgba(3,6,10,.72);backdrop-filter:blur(3px);display:none;align-items:center;justify-content:center;padding:24px}
+  .overlay.show{display:flex}
+  .modal{width:100%;max-width:640px;max-height:88vh;overflow-y:auto;background:linear-gradient(180deg,var(--surface),#12171E);border:1px solid var(--border);border-radius:16px;box-shadow:0 30px 80px -24px rgba(0,0,0,.8)}
+  .m-head{padding:20px 22px 16px;border-bottom:1px solid var(--border);position:relative}
+  .m-pill{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:20px;margin-bottom:9px}
+  .m-pill.red{background:var(--red-dim);color:var(--red)}.m-pill.amber{background:var(--amber-dim);color:var(--amber)}.m-pill.green{background:var(--green-dim);color:var(--green)}.m-pill.done{background:var(--teal-dim);color:var(--teal)}
+  .m-title{font-size:17px;font-weight:800;letter-spacing:-.01em;padding-right:30px}
+  .m-sub{display:flex;gap:16px;flex-wrap:wrap;margin-top:8px;font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+  .m-sub b{color:var(--text);font-weight:600}
+  .m-close{position:absolute;top:18px;right:18px;width:30px;height:30px;border-radius:8px;border:1px solid var(--border);display:grid;place-items:center;color:var(--muted)}
+  .m-close:hover{color:var(--text);border-color:var(--red)}.m-close svg{width:15px;height:15px}
+  .m-body{padding:22px}
+  .m-section-label{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-2);margin-bottom:16px}
+  .chain{display:flex;align-items:flex-start;gap:0;overflow-x:auto;padding-bottom:6px}
+  .node{display:flex;flex-direction:column;align-items:center;text-align:center;min-width:74px;flex-shrink:0}
+  .node .circle{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-family:var(--mono);font-weight:700;font-size:13px;border:2px solid var(--border);background:var(--surface-2);color:var(--muted)}
+  .node.done .circle{border-color:var(--green);background:rgba(63,185,80,.15);color:var(--green)}
+  .node.current .circle{border-color:var(--amber);background:rgba(227,179,65,.15);color:var(--amber);box-shadow:0 0 0 4px var(--amber-dim)}
+  .node.late .circle{border-color:var(--red);background:rgba(248,81,73,.15);color:var(--red);box-shadow:0 0 0 4px var(--red-dim)}
+  .node.pending .circle{opacity:.55}
+  .node .n-name{font-size:11.5px;font-weight:600;margin-top:9px;line-height:1.2}
+  .node.pending .n-name{color:var(--muted)}
+  .node .n-step{font-family:var(--mono);font-size:9.5px;color:var(--muted-2);margin-top:2px}
+  .node.endpoint .circle{width:34px;height:34px;border-style:dashed;background:transparent}
+  .conn{flex:1;min-width:18px;height:2px;margin-top:21px;background:var(--border);border-radius:2px}
+  .conn.done{background:var(--green)}
+  .assist{margin-top:22px;border-radius:12px;padding:15px 16px;display:flex;gap:13px;align-items:flex-start}
+  .assist.red{background:var(--red-dim);border:1px solid rgba(248,81,73,.3)}
+  .assist.amber{background:var(--amber-dim);border:1px solid rgba(227,179,65,.3)}
+  .assist.done{background:var(--teal-dim);border:1px solid var(--teal-line)}
+  .assist .a-ico{flex-shrink:0;width:20px;height:20px;margin-top:1px}
+  .assist.red .a-ico{color:var(--red)}.assist.amber .a-ico{color:var(--amber)}.assist.done .a-ico{color:var(--teal)}
+  .assist .a-ico svg{width:20px;height:20px}
+  .assist .a-title{font-size:13.5px;font-weight:700;margin-bottom:3px}
+  .assist.red .a-title{color:var(--red)}.assist.amber .a-title{color:var(--amber)}.assist.done .a-title{color:var(--teal)}
+  .assist .a-text{font-size:12.5px;color:var(--muted);line-height:1.5}
+  .m-actions{display:flex;gap:10px;margin-top:20px}
+  .m-btn{flex:1;padding:11px;border-radius:9px;font-size:13px;font-weight:700;border:1px solid var(--border);transition:.15s;display:flex;align-items:center;justify-content:center;gap:8px}
+  .m-btn.primary{background:var(--teal);color:#04211E;border-color:var(--teal)}
+  .m-btn.primary:hover{filter:brightness(1.08)}
+  .m-btn.ghost{color:var(--muted)}.m-btn.ghost:hover{color:var(--text);border-color:var(--muted-2)}
+  .form-field{margin-bottom:14px}
+  .form-field label{display:block;font-size:11.5px;color:var(--muted);margin-bottom:6px;font-family:var(--mono)}
+  .form-field input,.form-field select{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:9px;padding:10px 12px;font-family:var(--ui);font-size:13px}
+  .form-field input:focus,.form-field select:focus{outline:none;border-color:var(--teal-line);box-shadow:0 0 0 3px var(--teal-dim)}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .form-error{color:var(--red);font-size:12px;font-family:var(--mono);margin-top:-6px;margin-bottom:14px;display:none}
+  .form-error.show{display:block}
 </style>
 </head>
 <body>
@@ -147,10 +254,12 @@
   </div>
 </div>
 
+<div class="overlay" id="overlay"><div class="modal" id="modal"></div></div>
+
 <script>
 const NAV = [
   { grp: "Operação" },
-  { id: "fluxo", label: "Linha de Produção", icon: "flow", roles: ["assistente","coordenador","gerente"], soon: true },
+  { id: "fluxo", label: "Linha de Produção", icon: "flow", roles: ["assistente","coordenador","gerente"] },
   { grp: "Administração" },
   { id: "auditoria", label: "Auditoria", icon: "shield", roles: ["gerente"] },
   { id: "usuarios", label: "Usuários & Acessos", icon: "users", roles: ["gerente"] },
@@ -163,14 +272,14 @@ const ICONS = {
 const svg=(n)=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICONS[n]}</svg>`;
 const lockIcon='<svg class="lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>';
 const TITLES = {
-  fluxo: ["Linha de Produção", "próximo bloco — ainda não construído"],
+  fluxo: ["Linha de Produção", "visão em tempo real"],
   auditoria: ["Auditoria", "registro imutável de acessos e ações — dados reais do D1"],
   usuarios: ["Usuários & Acessos", "o cargo define o que cada pessoa pode fazer (RBAC no servidor)"],
 };
 const initials=(name)=>name.trim().split(/\s+/).map(w=>w[0]).slice(0,2).join("").toUpperCase();
 
 let me = null;
-let view = "auditoria";
+let view = "fluxo";
 
 async function api(path, opts){
   const res = await fetch(path, { credentials: "include", headers: {"Content-Type":"application/json"}, ...opts });
@@ -218,8 +327,141 @@ async function viewUsuarios(){
   }catch(e){ return restricted(); }
 }
 
-function viewFluxo(){
-  return `<div class="restricted"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><div class="r-title">Próximo bloco</div><div class="r-text">A Linha de Produção entra depois que a Espinha (esta tela) estiver fechada — ver mockup-fluxo-tarefa-v2.html para a referência aprovada.</div></div>`;
+const clockIcon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>';
+const alertIcon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4m0 4h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>';
+const checkIcon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></svg>';
+const plusIcon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>';
+
+function fmtDate(iso){ if(!iso) return "—"; const [y,m,d]=iso.split("-"); return `${d}/${m}`; }
+function countdownText(t){ if(t.done) return "entregue"; if(t.daysLeft<0) return `atrasada ${Math.abs(t.daysLeft)}d`; if(t.daysLeft===0) return "vence hoje"; return `faltam ${t.daysLeft}d`; }
+
+async function viewFluxo(){
+  let data;
+  try{ data = await api("/api/tasks"); }
+  catch(e){ return `<div class="board-empty">Não foi possível carregar a linha agora.</div>`; }
+  const tasks = data.tasks, stages = data.stages.slice(0,3); // "Entregue" some do quadro ativo
+  const active = tasks.filter(t=>!t.done);
+  const c = {red:0,amber:0,green:0}; active.forEach(t=>c[t.status]++);
+
+  let bottleneck=null, gargaloHtml="";
+  if(me.role !== "assistente"){
+    const counts={}; stages.forEach(s=>counts[s]=active.filter(t=>t.stage===s).length);
+    bottleneck = Object.keys(counts).reduce((a,b)=>counts[b]>counts[a]?b:a, stages[0]);
+    const late = active.filter(t=>t.stage===bottleneck && t.status==="red");
+    const nomes = [...new Set(late.map(t=>t.owner?.name.split(" ")[0]).filter(Boolean))].join(", ");
+    if(active.length){
+      gargaloHtml = `<div class="gargalo">${alertIcon}<div class="g-txt">Gargalo em <b>${bottleneck}</b> — ${counts[bottleneck]} tarefas paradas${nomes?`, atraso com <b>${nomes}</b>`:''}.</div></div>`;
+    }
+  }
+
+  const allStages = data.stages; // inclui "Entregue" pro quadro
+  let line = "";
+  allStages.forEach(stage=>{
+    const items = tasks.filter(t=>t.stage===stage);
+    const isBn = stage===bottleneck;
+    line += `<div class="stage ${isBn?'bottleneck':''}"><div class="stage-head"><div class="stage-name">${stage}${isBn?'<span class="bneck-flag">gargalo</span>':''}</div><div class="stage-count">${items.length}</div></div>`;
+    items.forEach(t=>{
+      const stack = t.chain.map(n=>`<span class="stk ${n.state}" title="${n.name}">${n.name.split(" ").map(w=>w[0]).slice(0,2).join("")}</span>`).join("");
+      line += `<div class="task ${t.status}" data-id="${t.id}"><div class="band"></div><div class="t-title">${t.title}</div><div class="t-meta"><div class="stack">${stack}</div>${t.tool?`<span class="t-tool">${t.tool}</span>`:''}</div><div class="t-foot"><span class="countdown">${clockIcon}${countdownText(t)}</span><span class="prazo-date">${t.done?'—':'prazo '+fmtDate(t.dueDate)}</span></div></div>`;
+    });
+    if(!items.length) line += `<div style="color:var(--muted-2);font-size:11px;font-family:var(--mono);text-align:center;padding:14px 0">vazio</div>`;
+    line += `</div>`;
+  });
+
+  return `
+    <div class="flow-head">
+      <div class="status-chips">
+        <span class="chip red"><span class="swatch" style="background:var(--red)"></span><span class="n">${c.red}</span> atrasadas</span>
+        <span class="chip amber"><span class="swatch" style="background:var(--amber)"></span><span class="n">${c.amber}</span> na média</span>
+        <span class="chip green"><span class="swatch" style="background:var(--green)"></span><span class="n">${c.green}</span> adiantadas</span>
+        <button class="add-btn" id="btnAddTask">${plusIcon}Adicionar tarefa</button>
+      </div>
+    </div>
+    ${gargaloHtml}
+    <div class="rail"><span class="end">Início</span><span class="track"></span><span class="end">Fim</span></div>
+    <div class="line">${line}</div>
+    <div class="legend"><span class="l-title">Semáforo</span>
+      <span class="l-item"><span class="sw" style="background:var(--green)"></span><b>Verde</b> — etapa entregue</span>
+      <span class="l-item"><span class="sw" style="background:var(--amber)"></span><b>Âmbar</b> — acumulando aqui</span>
+      <span class="l-item"><span class="sw" style="background:var(--red)"></span><b>Vermelho</b> — gargalo / atraso</span>
+    </div>`;
+}
+
+/* ---------- MODAL corrente da tarefa ---------- */
+async function openTask(id){
+  let data;
+  try{ data = await api("/api/tasks/"+id); }
+  catch(e){ alert(e.message); return; }
+  const t = data.task;
+  const pill = t.done ? {c:"done",x:"Entregue"} : t.status==="red" ? {c:"red",x:"Atrasada"} : t.status==="amber" ? {c:"amber",x:"Na média"} : {c:"green",x:"Adiantada"};
+  let chain = `<div class="node endpoint done"><div class="circle" style="border-color:var(--green);color:var(--green)">▸</div><div class="n-step">Início</div></div><div class="conn done"></div>`;
+  t.chain.forEach((n,j)=>{
+    chain += `<div class="node ${n.state}"><div class="circle">${n.name.split(" ").map(w=>w[0]).slice(0,2).join("")}</div><div class="n-name">${n.name.split(" ")[0]}</div><div class="n-step">${n.step}</div></div>`;
+    chain += `<div class="conn ${(t.done || j<t.currentPosition)?'done':''}"></div>`;
+  });
+  chain += `<div class="node endpoint ${t.done?'done':'pending'}"><div class="circle" ${t.done?'style="border-color:var(--green);color:var(--green)"':''}>✓</div><div class="n-step">Fim</div></div>`;
+
+  const ownerFirst = t.owner ? t.owner.name.split(" ")[0] : "—";
+  let assist;
+  if(t.done) assist = `<div class="assist done"><div class="a-ico">${checkIcon}</div><div><div class="a-title">Fluxo concluído</div><div class="a-text">Entregue por <b>${ownerFirst}</b>. Toda a corrente passou no prazo e está registrada na auditoria.</div></div></div>`;
+  else if(t.status==="red") assist = `<div class="assist red"><div class="a-ico">${alertIcon}</div><div><div class="a-title">Gargalo com ${ownerFirst} · parado há ${t.heldDays} dia(s)</div><div class="a-text">A tarefa travou na etapa de <b>${t.owner?.step}</b>. Antes de cobrar, vale um alô: às vezes é só a tarefa não ter ficado clara. É aqui que você presta assistência.</div></div></div>`;
+  else assist = `<div class="assist amber"><div class="a-ico">${clockIcon}</div><div><div class="a-title">Agora com ${ownerFirst} · há ${t.heldDays} dia(s) nesta etapa</div><div class="a-text">Está na etapa de <b>${t.owner?.step}</b>, dentro do prazo. Sem ação necessária — só acompanhando para não virar gargalo.</div></div></div>`;
+
+  modal.innerHTML = `
+    <div class="m-head"><button class="m-close" onclick="closeModal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      <span class="m-pill ${pill.c}">${pill.x}</span><div class="m-title">${t.title}</div>
+      <div class="m-sub"><span>Equipe do fluxo · <b>${t.chain.length} pessoas</b></span>${t.done?'':`<span>Prazo · <b>${fmtDate(t.dueDate)}</b></span><span>${countdownText(t)}</span>`}${t.tool?`<span>Ferramenta · <b>${t.tool}</b></span>`:''}</div></div>
+    <div class="m-body"><div class="m-section-label">Corrente da tarefa — quem já entregou, quem está com ela agora</div>
+      <div class="chain">${chain}</div>${assist}
+      <div class="m-actions"><button class="m-btn ghost" onclick="closeModal()">Fechar</button></div></div>`;
+  overlay.classList.add("show");
+}
+function closeModal(){ overlay.classList.remove("show"); }
+
+/* ---------- MODAL adicionar tarefa ---------- */
+async function openAddTask(){
+  let team;
+  try{ team = (await api("/api/team")).rows; }
+  catch(e){ alert(e.message); return; }
+  const memberOpts = team.map(u=>`<option value="${u.id}" ${u.id===me.id?'selected':''}>${u.name}</option>`).join("");
+  const stageOpts = ["Fila","Execução","Revisão"].map(s=>`<option value="${s}">${s}</option>`).join("");
+  const def = new Date(); def.setDate(def.getDate()+5);
+  const defPrazo = def.toISOString().slice(0,10);
+  modal.innerHTML = `
+    <div class="m-head"><button class="m-close" onclick="closeModal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      <span class="m-pill amber">Nova tarefa</span><div class="m-title">Adicionar tarefa à linha</div>
+      <div class="m-sub"><span>Entra na linha de produção assim que criada</span></div></div>
+    <div class="m-body">
+      <div class="form-field"><label>Título da tarefa</label><input id="fTitulo" type="text" placeholder="Ex.: Conferir notas fiscais de agosto"></div>
+      <div class="form-error" id="fErro"></div>
+      <div class="form-row">
+        <div class="form-field"><label>Etapa inicial</label><select id="fEtapa">${stageOpts}</select></div>
+        <div class="form-field"><label>Responsável</label><select id="fResp">${memberOpts}</select></div>
+      </div>
+      <div class="form-row">
+        <div class="form-field"><label>Prazo</label><input id="fPrazo" type="date" value="${defPrazo}"></div>
+        <div class="form-field"><label>Ferramenta sugerida</label><input id="fTool" type="text" placeholder="opcional"></div>
+      </div>
+      <div class="m-actions"><button class="m-btn primary" id="btnSubmitTask">${plusIcon}Adicionar à linha</button><button class="m-btn ghost" onclick="closeModal()">Cancelar</button></div>
+    </div>`;
+  overlay.classList.add("show");
+  document.getElementById("fTitulo").focus();
+  document.getElementById("btnSubmitTask").addEventListener("click", submitAddTask);
+}
+async function submitAddTask(){
+  const title = document.getElementById("fTitulo").value.trim();
+  const dueDate = document.getElementById("fPrazo").value;
+  const stage = document.getElementById("fEtapa").value;
+  const responsavelId = Number(document.getElementById("fResp").value);
+  const tool = document.getElementById("fTool").value.trim();
+  const erro = document.getElementById("fErro");
+  erro.classList.remove("show");
+  if(!title || !dueDate){ erro.textContent="Preencha o título e o prazo para continuar."; erro.classList.add("show"); return; }
+  try{
+    await api("/api/tasks", { method:"POST", body: JSON.stringify({ title, stage, dueDate, responsavelId, tool }) });
+    closeModal();
+    render();
+  }catch(e){ erro.textContent = e.message; erro.classList.add("show"); }
 }
 
 async function render(){
@@ -231,12 +473,11 @@ async function render(){
   renderNav();
   const [tt, ts] = TITLES[view];
   document.getElementById("pageTitle").innerHTML = `${tt}<small>${ts}</small>`;
-  const [head, body] = [
-    `<div class="foundation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg><div><div class="f-title">Fase 0 — Espinha, dados reais</div><div class="f-text">Login, RBAC e auditoria acima já rodam contra um banco D1 de verdade — sem mock. Cada tentativa de acesso (permitida ou negada) vira uma linha nesta auditoria.</div></div></div>`,
-    ""
-  ];
-  let content = view==="auditoria" ? await viewAuditoria() : view==="usuarios" ? await viewUsuarios() : viewFluxo();
-  document.getElementById("content").innerHTML = head + `<div class="view-head"><h2>${tt}</h2><p>${ts}</p></div>` + content + `<div class="footer-note">Fase 0 — Espinha · dados de demonstração · identidade <span>Prumo</span></div>`;
+  const foundation = view==="fluxo" ? "" : `<div class="foundation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg><div><div class="f-title">Fase 0 — Espinha, dados reais</div><div class="f-text">Login, RBAC e auditoria acima já rodam contra um banco D1 de verdade — sem mock. Cada tentativa de acesso (permitida ou negada) vira uma linha nesta auditoria.</div></div></div>`;
+  const heading = view==="fluxo" ? "" : `<div class="view-head"><h2>${tt}</h2><p>${ts}</p></div>`;
+  let content = view==="auditoria" ? await viewAuditoria() : view==="usuarios" ? await viewUsuarios() : await viewFluxo();
+  document.getElementById("content").innerHTML = foundation + heading + content + `<div class="footer-note">Fase 0 — Espinha · dados de demonstração · identidade <span>Prumo</span></div>`;
+  document.getElementById("btnAddTask")?.addEventListener("click", openAddTask);
 }
 
 function showApp(){ document.getElementById("login").style.display="none"; document.getElementById("app").classList.add("show"); }
@@ -263,6 +504,9 @@ document.getElementById("btnEntrar").addEventListener("click", async ()=>{
 document.querySelectorAll(".quick-btn").forEach(b=>b.addEventListener("click",()=>{document.getElementById("fEmail").value=b.dataset.email;document.getElementById("fSenha").value="Prumo@123";}));
 document.getElementById("btnSair").addEventListener("click", async ()=>{ await api("/api/auth/logout",{method:"POST"}); me=null; showLogin(); });
 document.getElementById("nav").addEventListener("click", e=>{ const b=e.target.closest(".nav-item"); if(!b||b.disabled) return; view=b.dataset.id; render(); });
+document.getElementById("content").addEventListener("click", e=>{ const card=e.target.closest(".task"); if(!card) return; openTask(card.dataset.id); });
+overlay.addEventListener("click", e=>{ if(e.target===overlay) closeModal(); });
+document.addEventListener("keydown", e=>{ if(e.key==="Escape") closeModal(); });
 
 boot();
 </script>

@@ -22,6 +22,13 @@ const USERS = [
   { name: "Ana Ribeiro", email: "ana@prumo.demo", role: "assistente" },
   { name: "Carla Dias", email: "carla@prumo.demo", role: "coordenador" },
   { name: "Você", email: "gerente@prumo.demo", role: "gerente" },
+  // Equipe da linha de produção — participam da corrente das tarefas (Fase 2).
+  { name: "Pedro Alves", email: "pedro@prumo.demo", role: "coordenador" },
+  { name: "Diana Souza", email: "diana@prumo.demo", role: "assistente" },
+  { name: "Márcia Reis", email: "marcia@prumo.demo", role: "assistente" },
+  { name: "Bruno Melo", email: "bruno@prumo.demo", role: "assistente" },
+  { name: "Marcelo Nunes", email: "marcelo@prumo.demo", role: "assistente" },
+  { name: "Carlos Lima", email: "carlos@prumo.demo", role: "assistente" },
 ];
 
 const esc = (s) => s.replace(/'/g, "''");
