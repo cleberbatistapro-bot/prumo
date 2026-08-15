@@ -34,7 +34,14 @@ const USERS = [
 const esc = (s) => s.replace(/'/g, "''");
 
 let sql = `-- Dados de demonstração — Fase Recrutador. Senha única (demo): ${DEMO_PASSWORD}\n`;
-sql += `DELETE FROM audit_log;\nDELETE FROM sessions;\nDELETE FROM users;\n\n`;
+// ordem de dependência: tudo que referencia users precisa ser limpo antes de recriar users.
+sql += `DELETE FROM audit_log;\n`;
+sql += `DELETE FROM sessions;\n`;
+sql += `DELETE FROM attendance_days;\n`;
+sql += `DELETE FROM performance_monthly;\n`;
+sql += `DELETE FROM task_chain;\n`;
+sql += `DELETE FROM tasks;\n`;
+sql += `DELETE FROM users;\n\n`;
 for (const u of USERS) {
   const { salt, hash } = hashPassword(DEMO_PASSWORD);
   sql += `INSERT INTO users (name, email, password_hash, salt, role) VALUES ('${esc(u.name)}', '${esc(u.email)}', '${hash}', '${salt}', '${u.role}');\n`;

@@ -1,14 +1,18 @@
 -- Dados de demonstração — Fase Recrutador. Senha única (demo): Prumo@123
 DELETE FROM audit_log;
 DELETE FROM sessions;
+DELETE FROM attendance_days;
+DELETE FROM performance_monthly;
+DELETE FROM task_chain;
+DELETE FROM tasks;
 DELETE FROM users;
 
-INSERT INTO users (name, email, password_hash, salt, role) VALUES ('Ana Ribeiro', 'ana@prumo.demo', 'f824dc54b2f4e1096717dd6022675cfd750c9559e8808fddcb2544cdaea483c7', '58367e8e1b79c0da8c5087b72f37c41f', 'assistente');
-INSERT INTO users (name, email, password_hash, salt, role) VALUES ('Carla Dias', 'carla@prumo.demo', '4bcdadeace42d3a850550349e55f972e90083fb01915ee46d5076a4de49ce27d', 'a34517fc3719b2c5fa0933c792a46931', 'coordenador');
-INSERT INTO users (name, email, password_hash, salt, role) VALUES ('Você', 'gerente@prumo.demo', 'd676e3e4049b82b167d6788dda2589693f8ad13e4a3797e3fd7905344f893eee', 'f469f10fa066b5ee5badd740d2324590', 'gerente');
-INSERT INTO users (name, email, password_hash, salt, role) VALUES ('Pedro Alves', 'pedro@prumo.demo', '1b73b5f3f2d9efed865e7b4dd888cea3e8d1fb8c435a527d31be6f25e0d20734', '5f44c55c2e9f1c3c8166aa38788a3b59', 'coordenador');
-INSERT INTO users (name, email, password_hash, salt, role) VALUES ('Diana Souza', 'diana@prumo.demo', 'bb00cae582169879d3bcdf2818df7408833cee82adcf56dd1144806168ab2c12', 'e5ab7cd961618a9ca80fb20e8d51c0ef', 'assistente');
-INSERT INTO users (name, email, password_hash, salt, role) VALUES ('Márcia Reis', 'marcia@prumo.demo', '74fecf394fbddbca4b71cb9d9688d87928225a5147f2ecf134f827a1706e23c4', '5444d8e3bdc0bfb92e0f863c63c3e11a', 'assistente');
-INSERT INTO users (name, email, password_hash, salt, role) VALUES ('Bruno Melo', 'bruno@prumo.demo', '006eb006ca779abba16a4aec9b4da491ee56add2a9d7bc227aa2731bfcfcb713', '3289d724993251bbb78574d36118426d', 'assistente');
-INSERT INTO users (name, email, password_hash, salt, role) VALUES ('Marcelo Nunes', 'marcelo@prumo.demo', '1ff71476da6e5ef724dfaedc7805a978886d62fb8a932729b6adde35986a697a', 'a333ec5463c0f9e6873baa86572a2040', 'assistente');
-INSERT INTO users (name, email, password_hash, salt, role) VALUES ('Carlos Lima', 'carlos@prumo.demo', '71a9caeb907423e6cc84fdabd4d8122b708c49b7652fb32d51a228f2b7139ac7', '87e34924f7ab018055284bd3f3cab2bb', 'assistente');
+INSERT INTO users (name, email, password_hash, salt, role) VALUES ('Ana Ribeiro', 'ana@prumo.demo', '135baa97a343d29ef6b80ec6b1e409d29596921090379e767d0fa6d48db4803e', 'a69e5dceec600952661e09c6df9f877f', 'assistente');
+INSERT INTO users (name, email, password_hash, salt, role) VALUES ('Carla Dias', 'carla@prumo.demo', '9861771bb49b66a0d0c34323dd8345961ee8fccc5b9671a4fa9285bc65106e2b', '288a57f5d8edd07c9cee35457acee1bd', 'coordenador');
+INSERT INTO users (name, email, password_hash, salt, role) VALUES ('Você', 'gerente@prumo.demo', 'dcbf384cca1be7702e1e7bb9c74336601c32009cd2389370b3dcd6052f58cc9a', '8105266518856d4e50db6bfc39d6e5a3', 'gerente');
+INSERT INTO users (name, email, password_hash, salt, role) VALUES ('Pedro Alves', 'pedro@prumo.demo', '61044033403b6ff3de9cf5e7ecbdcee07d506ed18adb9129ee83f3168136aad4', 'e705f0d88f07e1656ad0c979e821aff8', 'coordenador');
+INSERT INTO users (name, email, password_hash, salt, role) VALUES ('Diana Souza', 'diana@prumo.demo', '4745cd50f2f8471a520e04c3a5667c6f672d9feee175e1c1c6e5f45a7442f463', '4835c76875f86aa22c43075ea21a8751', 'assistente');
+INSERT INTO users (name, email, password_hash, salt, role) VALUES ('Márcia Reis', 'marcia@prumo.demo', '418e032e099bda16c37fbc1174cf30f73ba37782b795a1f2c347c504550a9f08', 'e891f0086e54a5404444224717266601', 'assistente');
+INSERT INTO users (name, email, password_hash, salt, role) VALUES ('Bruno Melo', 'bruno@prumo.demo', 'ab9d481cf8dfcf2197ac8e08bd7f19e6f93168b24e94b599818954ceb34daedc', 'f8fd0d079f6834029ff76f48b0f26b9f', 'assistente');
+INSERT INTO users (name, email, password_hash, salt, role) VALUES ('Marcelo Nunes', 'marcelo@prumo.demo', 'de2227fcdb891b9f946e76e0a12f08be64a75b694d9c352649559665a183d7c5', '7b49d04e3edd83d3e95aeee6fc7c0913', 'assistente');
+INSERT INTO users (name, email, password_hash, salt, role) VALUES ('Carlos Lima', 'carlos@prumo.demo', '2d54a260d8dace333792bc5430e542e5f0025af23bf727104e25f44ddad0745c', 'c9cc967c17f369e33b064eeb87a7e93a', 'assistente');
