@@ -552,6 +552,48 @@ function openTask(id){
 }
 function closeModal(){ overlay.classList.remove("show"); }
 
+/* ---------- MODAL adicionar tarefa ---------- */
+function openAddTask(){
+  const memberOpts=Object.keys(MEMBERS).map(ini=>`<option value="${ini}" ${ini===ROLES[current].owns?'selected':''}>${MEMBERS[ini]}</option>`).join("");
+  const stageOpts=STAGES.slice(0,3).map(s=>`<option value="${s}">${s}</option>`).join("");
+  const toolOpts=`<option value="">Nenhuma</option>`+TOOLS.map(t=>`<option value="${t.nome}">${t.nome}</option>`).join("");
+  const defPrazo=d(5).toISOString().slice(0,10);
+  modal.innerHTML=`
+    <div class="m-head"><button class="m-close" onclick="closeModal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      <span class="m-pill amber">Nova tarefa</span><div class="m-title">Adicionar tarefa à linha</div>
+      <div class="m-sub"><span>Entra na linha de produção assim que criada</span></div></div>
+    <div class="m-body">
+      <div class="form-field"><label>Título da tarefa</label><input id="fTitulo" type="text" placeholder="Ex.: Conferir notas fiscais de agosto"></div>
+      <div class="form-error" id="fErro">Preencha o título e o prazo para continuar.</div>
+      <div class="form-row">
+        <div class="form-field"><label>Etapa inicial</label><select id="fEtapa">${stageOpts}</select></div>
+        <div class="form-field"><label>Responsável</label><select id="fResp">${memberOpts}</select></div>
+      </div>
+      <div class="form-row">
+        <div class="form-field"><label>Prazo</label><input id="fPrazo" type="date" value="${defPrazo}"></div>
+        <div class="form-field"><label>Ferramenta sugerida</label><select id="fTool">${toolOpts}</select></div>
+      </div>
+      <div class="m-actions"><button class="m-btn primary" onclick="submitAddTask()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>Adicionar à linha</button><button class="m-btn ghost" onclick="closeModal()">Cancelar</button></div>
+    </div>`;
+  overlay.classList.add("show");
+  document.getElementById("fTitulo").focus();
+}
+function submitAddTask(){
+  const titulo=document.getElementById("fTitulo").value.trim();
+  const prazoStr=document.getElementById("fPrazo").value;
+  const erro=document.getElementById("fErro");
+  if(!titulo||!prazoStr){ erro.classList.add("show"); return; }
+  const etapa=document.getElementById("fEtapa").value;
+  const resp=document.getElementById("fResp").value;
+  const tool=document.getElementById("fTool").value;
+  const prazo=new Date(prazoStr+"T00:00:00");
+  const id="t"+(TASKS.length+1)+"_"+Date.now();
+  TASKS.push({ id, t:titulo, stage:etapa, prazo, aberto:new Date(HOJE), tool:tool||undefined, held:0, chain:[{ini:resp,step:etapa}], at:0, owner:resp });
+  closeModal();
+  render();
+  window.scrollTo(0,0);
+}
+
 function enter(role){ current=role; login.classList.add("hidden"); app.classList.add("show"); render(); window.scrollTo(0,0); }
 document.getElementById("roleSwitch").addEventListener("click",e=>{const b=e.target.closest(".role-opt");if(!b)return;current=b.dataset.role;render();});
 document.getElementById("nav").addEventListener("click",e=>{const b=e.target.closest(".nav-item");if(!b||b.disabled)return;view=b.dataset.id;render();window.scrollTo(0,0);});
