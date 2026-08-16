@@ -32,9 +32,14 @@ telas) fica em `public/app.html`. Login de demonstração (senha única): `Prumo
   nunca `UPDATE`/`DELETE` pela aplicação).
 - Linha de Produção com dados reais: `tasks` + `task_chain` no D1. Gargalo, contador, semáforo
   e corrente da tarefa são todos calculados no servidor a partir do banco.
-- "Adicionar tarefa" grava direto no D1 e aparece na linha de todo mundo na hora.
+- "Adicionar tarefa" monta a corrente inteira na criação (vários responsáveis em sequência,
+  cada um com seu prazo e ferramenta sugerida) e grava direto no D1. Só Coordenador e Gerente
+  criam, editam ou excluem tarefas — Assistente executa dentro do que foi definido. Editar e
+  excluir sempre passam por uma confirmação explícita antes de efetivar.
 - Assistente só vê as tarefas em que é o responsável atual da corrente — filtro aplicado no
   servidor (`/api/tasks`), não escondido na tela.
+- Chips de status (atrasadas/na média/adiantadas) são clicáveis: destacam as tarefas
+  correspondentes no quadro e esmaecem o resto.
 - Desempenho Individual com dados reais: `performance_monthly` + `attendance_days` no D1.
   A "média dela" (baseline) é calculada no servidor como a média dos 5 meses anteriores ao
   atual — nunca comparação entre colegas. Só Gerente acessa (`/api/performance`), com

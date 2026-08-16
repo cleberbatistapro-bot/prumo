@@ -144,6 +144,11 @@
   .chip.red{background:var(--red-dim);border-color:rgba(var(--red-rgb),.3);color:var(--red)}
   .chip.amber{background:var(--amber-dim);border-color:rgba(var(--amber-rgb),.3);color:var(--amber)}
   .chip.green{background:var(--green-dim);border-color:rgba(var(--green-rgb),.3);color:var(--green)}
+  .chip{cursor:pointer;transition:.15s;user-select:none}
+  .chip:hover{filter:brightness(1.15)}
+  .chip.active{box-shadow:0 0 0 2px currentColor}
+  .task{transition:opacity .15s,filter .15s}
+  .task.dimmed{opacity:.28;filter:grayscale(.4)}
   .chip .swatch{width:8px;height:8px;border-radius:50%}
   .add-btn{display:flex;align-items:center;gap:7px;background:var(--teal);color:var(--on-teal);font-weight:700;font-size:12.5px;padding:8px 14px;border-radius:8px;white-space:nowrap}
   .add-btn:hover{filter:brightness(1.08)}
@@ -236,6 +241,19 @@
   .m-btn.primary{background:var(--teal);color:var(--on-teal);border-color:var(--teal)}
   .m-btn.primary:hover{filter:brightness(1.08)}
   .m-btn.ghost{color:var(--muted)}.m-btn.ghost:hover{color:var(--text);border-color:var(--muted-2)}
+  .m-btn.ghost.danger{color:var(--red)}.m-btn.ghost.danger:hover{border-color:var(--red)}
+  .m-btn.danger-solid{background:var(--red);color:#fff;border-color:var(--red)}
+  .m-btn.danger-solid:hover{filter:brightness(1.1)}
+  .confirm-box{margin-top:14px;padding:14px 16px;border-radius:10px;background:rgba(var(--red-rgb),.08);border:1px solid rgba(var(--red-rgb),.3)}
+  .confirm-text{font-size:13px;color:var(--text);line-height:1.5;margin-bottom:12px}
+  .confirm-actions{display:flex;gap:10px}
+  .chain-row{border:1px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:10px;background:var(--surface-2)}
+  .chain-row-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+  .chain-row-n{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--teal)}
+  .chain-row-remove{width:22px;height:22px;border-radius:6px;display:grid;place-items:center;color:var(--muted);border:1px solid var(--border)}
+  .chain-row-remove:hover{color:var(--red);border-color:var(--red)}
+  .chain-add-btn{display:flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;color:var(--teal);padding:8px 4px;margin-bottom:16px}
+  .chain-add-btn:hover{text-decoration:underline}
   .form-field{margin-bottom:14px}
   .form-field label{display:block;font-size:11.5px;color:var(--muted);margin-bottom:6px;font-family:var(--mono)}
   .form-field input,.form-field select{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:9px;padding:10px 12px;font-family:var(--ui);font-size:13px}
@@ -639,9 +657,19 @@ const clockIcon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stro
 const alertIcon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4m0 4h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>';
 const checkIcon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></svg>';
 const plusIcon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>';
+const plusIconSmall='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px"><path d="M12 5v14M5 12h14"/></svg>';
+const closeIconSmall='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px"><path d="M18 6 6 18M6 6l12 12"/></svg>';
+const editIcon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5z"/></svg>';
+const trashIcon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6"/></svg>';
 
 function fmtDate(iso){ if(!iso) return "—"; const [y,m,d]=iso.split("-"); return `${d}/${m}`; }
 function countdownText(t){ if(t.done) return "entregue"; if(t.daysLeft<0) return `atrasada ${Math.abs(t.daysLeft)}d`; if(t.daysLeft===0) return "vence hoje"; return `faltam ${t.daysLeft}d`; }
+
+let statusFilter = null;
+function setStatusFilter(status){
+  statusFilter = (statusFilter === status) ? null : status;
+  render();
+}
 
 async function viewFluxo(){
   let data;
@@ -670,19 +698,22 @@ async function viewFluxo(){
     line += `<div class="stage ${isBn?'bottleneck':''}"><div class="stage-head"><div class="stage-name">${stage}${isBn?'<span class="bneck-flag">gargalo</span>':''}</div><div class="stage-count">${items.length}</div></div>`;
     items.forEach(t=>{
       const stack = t.chain.map(n=>`<span class="stk ${n.state}" title="${n.name}">${n.name.split(" ").map(w=>w[0]).slice(0,2).join("")}</span>`).join("");
-      line += `<div class="task ${t.status}" data-id="${t.id}"><div class="band"></div><div class="t-title">${t.title}</div><div class="t-meta"><div class="stack">${stack}</div>${t.tool?`<span class="t-tool">${t.tool}</span>`:''}</div><div class="t-foot"><span class="countdown">${clockIcon}${countdownText(t)}</span><span class="prazo-date">${t.done?'—':'prazo '+fmtDate(t.dueDate)}</span></div></div>`;
+      const dimmed = statusFilter && (t.done || t.status !== statusFilter);
+      line += `<div class="task ${t.status} ${dimmed?'dimmed':''}" data-id="${t.id}"><div class="band"></div><div class="t-title">${t.title}</div><div class="t-meta"><div class="stack">${stack}</div>${t.tool?`<span class="t-tool">${t.tool}</span>`:''}</div><div class="t-foot"><span class="countdown">${clockIcon}${countdownText(t)}</span><span class="prazo-date">${t.done?'—':'prazo '+fmtDate(t.dueDate)}</span></div></div>`;
     });
     if(!items.length) line += `<div style="color:var(--muted-2);font-size:11px;font-family:var(--mono);text-align:center;padding:14px 0">vazio</div>`;
     line += `</div>`;
   });
 
+  const addBtn = me.role !== "assistente" ? `<button class="add-btn" id="btnAddTask">${plusIcon}Adicionar tarefa</button>` : "";
+
   return `
     <div class="flow-head">
       <div class="status-chips">
-        <span class="chip red"><span class="swatch" style="background:var(--red)"></span><span class="n">${c.red}</span> atrasadas</span>
-        <span class="chip amber"><span class="swatch" style="background:var(--amber)"></span><span class="n">${c.amber}</span> na média</span>
-        <span class="chip green"><span class="swatch" style="background:var(--green)"></span><span class="n">${c.green}</span> adiantadas</span>
-        <button class="add-btn" id="btnAddTask">${plusIcon}Adicionar tarefa</button>
+        <span class="chip red ${statusFilter==='red'?'active':''}" onclick="setStatusFilter('red')"><span class="swatch" style="background:var(--red)"></span><span class="n">${c.red}</span> atrasadas</span>
+        <span class="chip amber ${statusFilter==='amber'?'active':''}" onclick="setStatusFilter('amber')"><span class="swatch" style="background:var(--amber)"></span><span class="n">${c.amber}</span> na média</span>
+        <span class="chip green ${statusFilter==='green'?'active':''}" onclick="setStatusFilter('green')"><span class="swatch" style="background:var(--green)"></span><span class="n">${c.green}</span> adiantadas</span>
+        ${addBtn}
       </div>
     </div>
     ${gargaloHtml}
@@ -715,58 +746,152 @@ async function openTask(id){
   else if(t.status==="red") assist = `<div class="assist red"><div class="a-ico">${alertIcon}</div><div><div class="a-title">Gargalo com ${ownerFirst} · parado há ${t.heldDays} dia(s)</div><div class="a-text">A tarefa travou na etapa de <b>${t.owner?.step}</b>. Antes de cobrar, vale um alô: às vezes é só a tarefa não ter ficado clara. É aqui que você presta assistência.</div></div></div>`;
   else assist = `<div class="assist amber"><div class="a-ico">${clockIcon}</div><div><div class="a-title">Agora com ${ownerFirst} · há ${t.heldDays} dia(s) nesta etapa</div><div class="a-text">Está na etapa de <b>${t.owner?.step}</b>, dentro do prazo. Sem ação necessária — só acompanhando para não virar gargalo.</div></div></div>`;
 
+  const canManage = (me.role==="coordenador"||me.role==="gerente") && !t.done;
+  const manageBtns = canManage ? `<button class="m-btn ghost" onclick="openEditTask(${t.id})">${editIcon}Editar</button><button class="m-btn ghost danger" id="btnDeleteStart" onclick="startDeleteTask(${t.id},'${t.title.replace(/'/g,"\\'")}')">${trashIcon}Excluir</button>` : "";
+
   modal.innerHTML = `
     <div class="m-head"><button class="m-close" onclick="closeModal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
       <span class="m-pill ${pill.c}">${pill.x}</span><div class="m-title">${t.title}</div>
       <div class="m-sub"><span>Equipe do fluxo · <b>${t.chain.length} pessoas</b></span>${t.done?'':`<span>Prazo · <b>${fmtDate(t.dueDate)}</b></span><span>${countdownText(t)}</span>`}${t.tool?`<span>Ferramenta · <b>${t.tool}</b></span>`:''}</div></div>
     <div class="m-body"><div class="m-section-label">Corrente da tarefa — quem já entregou, quem está com ela agora</div>
       <div class="chain">${chain}</div>${assist}
-      <div class="m-actions"><button class="m-btn ghost" onclick="closeModal()">Fechar</button></div></div>`;
+      <div id="deleteConfirm"></div>
+      <div class="m-actions">${manageBtns}<button class="m-btn ghost" onclick="closeModal()">Fechar</button></div></div>`;
   overlay.classList.add("show");
 }
 function closeModal(){ overlay.classList.remove("show"); }
 
-/* ---------- MODAL adicionar tarefa ---------- */
+function startDeleteTask(id, title){
+  document.getElementById("deleteConfirm").innerHTML = `
+    <div class="confirm-box">
+      <div class="confirm-text">Tem certeza que quer excluir <b>"${title}"</b>? Essa ação não pode ser desfeita.</div>
+      <div class="confirm-actions"><button class="m-btn danger-solid" onclick="doDeleteTask(${id})">Sim, excluir</button><button class="m-btn ghost" onclick="document.getElementById('deleteConfirm').innerHTML=''">Cancelar</button></div>
+    </div>`;
+}
+async function doDeleteTask(id){
+  try{
+    await api("/api/tasks/"+id, { method:"DELETE" });
+    closeModal();
+    render();
+  }catch(e){ alert(e.message); }
+}
+
+/* ---------- MODAL editar tarefa ---------- */
+async function openEditTask(id){
+  let data;
+  try{ data = await api("/api/tasks/"+id); }
+  catch(e){ alert(e.message); return; }
+  const t = data.task;
+  const stageOpts = ["Fila","Execução","Revisão"].map(s=>`<option value="${s}" ${s===t.stage?'selected':''}>${s}</option>`).join("");
+  modal.innerHTML = `
+    <div class="m-head"><button class="m-close" onclick="closeModal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      <span class="m-pill amber">Editar tarefa</span><div class="m-title">${t.title}</div>
+      <div class="m-sub"><span>Só a etapa atual da corrente é editável — o histórico já percorrido fica como está</span></div></div>
+    <div class="m-body">
+      <div class="form-field"><label>Título da tarefa</label><input id="eTitulo" type="text" value="${t.title.replace(/"/g,'&quot;')}"></div>
+      <div class="form-error" id="eErro"></div>
+      <div class="form-row">
+        <div class="form-field"><label>Etapa</label><select id="eEtapa">${stageOpts}</select></div>
+        <div class="form-field"><label>Prazo (etapa atual: ${t.owner?t.owner.name:''})</label><input id="ePrazo" type="date" value="${t.dueDate||''}"></div>
+      </div>
+      <div class="form-field"><label>Ferramenta sugerida</label><input id="eTool" type="text" value="${t.tool||''}" placeholder="opcional"></div>
+      <div id="editConfirm"></div>
+      <div class="m-actions"><button class="m-btn primary" id="btnEditSave">${checkIcon}Salvar alterações</button><button class="m-btn ghost" onclick="closeModal()">Cancelar</button></div>
+    </div>`;
+  overlay.classList.add("show");
+  document.getElementById("btnEditSave").addEventListener("click", ()=>startEditConfirm(id));
+}
+function startEditConfirm(id){
+  const title = document.getElementById("eTitulo").value.trim();
+  const dueDate = document.getElementById("ePrazo").value;
+  const erro = document.getElementById("eErro");
+  erro.classList.remove("show");
+  if(!title || !dueDate){ erro.textContent = "Preencha título e prazo."; erro.classList.add("show"); return; }
+  document.getElementById("editConfirm").innerHTML = `
+    <div class="confirm-box">
+      <div class="confirm-text">Confirmar as alterações nesta tarefa?</div>
+      <div class="confirm-actions"><button class="m-btn primary" onclick="doEditTask(${id})">Confirmar</button><button class="m-btn ghost" onclick="document.getElementById('editConfirm').innerHTML=''">Voltar</button></div>
+    </div>`;
+}
+async function doEditTask(id){
+  const title = document.getElementById("eTitulo").value.trim();
+  const stage = document.getElementById("eEtapa").value;
+  const dueDate = document.getElementById("ePrazo").value;
+  const tool = document.getElementById("eTool").value.trim();
+  const erro = document.getElementById("eErro");
+  try{
+    await api("/api/tasks/"+id, { method:"PATCH", body: JSON.stringify({ title, stage, dueDate, tool }) });
+    closeModal();
+    render();
+  }catch(e){ erro.textContent = e.message; erro.classList.add("show"); document.getElementById("editConfirm").innerHTML=""; }
+}
+
+/* ---------- MODAL adicionar tarefa (corrente completa) ---------- */
+let addChainRows = [];
 async function openAddTask(){
+  if(me.role==="assistente") return;
   let team;
   try{ team = (await api("/api/team")).rows; }
   catch(e){ alert(e.message); return; }
-  const memberOpts = team.map(u=>`<option value="${u.id}" ${u.id===me.id?'selected':''}>${u.name}</option>`).join("");
-  const stageOpts = ["Fila","Execução","Revisão"].map(s=>`<option value="${s}">${s}</option>`).join("");
+  window._teamCache = team;
   const def = new Date(); def.setDate(def.getDate()+5);
-  const defPrazo = def.toISOString().slice(0,10);
+  addChainRows = [{ userId: me.id, step: "", dueDate: def.toISOString().slice(0,10), tool: "" }];
+  renderAddTaskModal();
+}
+function renderAddTaskModal(){
+  const team = window._teamCache || [];
+  const stageOpts = ["Fila","Execução","Revisão"].map(s=>`<option value="${s}">${s}</option>`).join("");
+  const rowsHtml = addChainRows.map((row,i)=>{
+    const memberOpts = team.map(u=>`<option value="${u.id}" ${u.id===row.userId?'selected':''}>${u.name}</option>`).join("");
+    const removeBtn = addChainRows.length>1 ? `<button class="chain-row-remove" onclick="removeChainRow(${i})" title="Remover pessoa">${closeIconSmall}</button>` : "";
+    return `<div class="chain-row">
+      <div class="chain-row-head"><span class="chain-row-n">${i+1}ª pessoa</span>${removeBtn}</div>
+      <div class="form-row">
+        <div class="form-field"><label>Responsável</label><select onchange="addChainRows[${i}].userId=Number(this.value)">${memberOpts}</select></div>
+        <div class="form-field"><label>Nome da etapa/atividade</label><input type="text" placeholder="ex.: Consolidação" value="${row.step}" oninput="addChainRows[${i}].step=this.value"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-field"><label>Prazo</label><input type="date" value="${row.dueDate}" oninput="addChainRows[${i}].dueDate=this.value"></div>
+        <div class="form-field"><label>Ferramenta sugerida</label><input type="text" placeholder="opcional" value="${row.tool}" oninput="addChainRows[${i}].tool=this.value"></div>
+      </div>
+    </div>`;
+  }).join("");
   modal.innerHTML = `
     <div class="m-head"><button class="m-close" onclick="closeModal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
       <span class="m-pill amber">Nova tarefa</span><div class="m-title">Adicionar tarefa à linha</div>
-      <div class="m-sub"><span>Entra na linha de produção assim que criada</span></div></div>
+      <div class="m-sub"><span>Monte a corrente inteira — cada pessoa com seu prazo e ferramenta</span></div></div>
     <div class="m-body">
       <div class="form-field"><label>Título da tarefa</label><input id="fTitulo" type="text" placeholder="Ex.: Conferir notas fiscais de agosto"></div>
+      <div class="form-field"><label>Etapa inicial</label><select id="fEtapa">${stageOpts}</select></div>
       <div class="form-error" id="fErro"></div>
-      <div class="form-row">
-        <div class="form-field"><label>Etapa inicial</label><select id="fEtapa">${stageOpts}</select></div>
-        <div class="form-field"><label>Responsável</label><select id="fResp">${memberOpts}</select></div>
-      </div>
-      <div class="form-row">
-        <div class="form-field"><label>Prazo</label><input id="fPrazo" type="date" value="${defPrazo}"></div>
-        <div class="form-field"><label>Ferramenta sugerida</label><input id="fTool" type="text" placeholder="opcional"></div>
-      </div>
+      <div class="m-section-label" style="margin-top:6px">Corrente de responsáveis</div>
+      <div id="chainRows">${rowsHtml}</div>
+      <button class="chain-add-btn" onclick="addChainRow()">${plusIconSmall}Adicionar pessoa à corrente</button>
       <div class="m-actions"><button class="m-btn primary" id="btnSubmitTask">${plusIcon}Adicionar à linha</button><button class="m-btn ghost" onclick="closeModal()">Cancelar</button></div>
     </div>`;
   overlay.classList.add("show");
   document.getElementById("fTitulo").focus();
   document.getElementById("btnSubmitTask").addEventListener("click", submitAddTask);
 }
+function addChainRow(){
+  const team = window._teamCache || [];
+  const def = new Date(); def.setDate(def.getDate()+5);
+  addChainRows.push({ userId: team[0]?.id, step: "", dueDate: def.toISOString().slice(0,10), tool: "" });
+  renderAddTaskModal();
+}
+function removeChainRow(i){
+  addChainRows.splice(i,1);
+  renderAddTaskModal();
+}
 async function submitAddTask(){
   const title = document.getElementById("fTitulo").value.trim();
-  const dueDate = document.getElementById("fPrazo").value;
   const stage = document.getElementById("fEtapa").value;
-  const responsavelId = Number(document.getElementById("fResp").value);
-  const tool = document.getElementById("fTool").value.trim();
   const erro = document.getElementById("fErro");
   erro.classList.remove("show");
-  if(!title || !dueDate){ erro.textContent="Preencha o título e o prazo para continuar."; erro.classList.add("show"); return; }
+  if(!title){ erro.textContent="Preencha o título da tarefa."; erro.classList.add("show"); return; }
+  if(addChainRows.some(r=>!r.step.trim() || !r.dueDate)){ erro.textContent="Cada pessoa da corrente precisa de nome da etapa e prazo."; erro.classList.add("show"); return; }
   try{
-    await api("/api/tasks", { method:"POST", body: JSON.stringify({ title, stage, dueDate, responsavelId, tool }) });
+    await api("/api/tasks", { method:"POST", body: JSON.stringify({ title, stage, chain: addChainRows.map(r=>({ responsavelId:r.userId, step:r.step, dueDate:r.dueDate, tool:r.tool })) }) });
     closeModal();
     render();
   }catch(e){ erro.textContent = e.message; erro.classList.add("show"); }

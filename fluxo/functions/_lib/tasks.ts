@@ -18,6 +18,8 @@ export interface ChainRow {
   user_id: number;
   step_label: string;
   name: string;
+  due_date: string | null;
+  tool: string | null;
 }
 
 function daysBetween(fromIso: string, toIso: string): number {
@@ -29,16 +31,21 @@ function daysBetween(fromIso: string, toIso: string): number {
 export function shapeTask(row: TaskRow, chain: ChainRow[], todayIso: string) {
   const myChain = chain.filter((c) => c.task_id === row.id).sort((a, b) => a.position - b.position);
   const done = !!row.done;
-  const daysLeft = row.due_date ? daysBetween(todayIso, row.due_date) : null;
+  const currentStep = myChain[row.current_position];
+  // prazo/ferramenta da etapa ATUAL da corrente manda; cai pro nível da tarefa
+  // só pra manter compatibilidade com tarefas antigas do seed que não têm isso por etapa.
+  const effectiveDueDate = currentStep?.due_date ?? row.due_date;
+  const effectiveTool = currentStep?.tool ?? row.tool;
+  const daysLeft = effectiveDueDate ? daysBetween(todayIso, effectiveDueDate) : null;
   const status = done ? "done" : daysLeft === null ? "green" : daysLeft < 0 ? "red" : daysLeft <= 2 ? "amber" : "green";
   const heldDays = Math.max(0, daysBetween(row.stage_entered_at, todayIso));
-  const owner = done ? myChain[myChain.length - 1] : myChain[row.current_position];
+  const owner = done ? myChain[myChain.length - 1] : currentStep;
   return {
     id: row.id,
     title: row.title,
     stage: row.stage,
-    tool: row.tool,
-    dueDate: row.due_date,
+    tool: effectiveTool,
+    dueDate: effectiveDueDate,
     openedAt: row.opened_at,
     currentPosition: row.current_position,
     done,
@@ -51,6 +58,8 @@ export function shapeTask(row: TaskRow, chain: ChainRow[], todayIso: string) {
       userId: c.user_id,
       name: c.name,
       step: c.step_label,
+      dueDate: c.due_date,
+      tool: c.tool,
       state: done ? "done" : c.position < row.current_position ? "done" : c.position === row.current_position ? (status === "red" ? "late" : "current") : "pending",
     })),
   };
