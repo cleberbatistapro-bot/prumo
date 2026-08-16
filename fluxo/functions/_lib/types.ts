@@ -12,6 +12,8 @@ export interface UserRow {
   salt: string;
   role: Role;
   created_at: string;
+  failed_attempts: number;
+  locked_until: string | null;
 }
 
 export interface PublicUser {

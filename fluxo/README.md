@@ -19,6 +19,16 @@ npm run db:seed:local
 npm run dev
 ```
 
+## Testes
+
+```bash
+npm test
+```
+
+Cobre a lógica pura mais importante: hash/verificação de senha, o cálculo de status/prazo/estado
+da corrente de cada tarefa, e a régua de desempenho (baseline = média dos 5 meses anteriores,
+nunca comparação entre pessoas). Não sobe servidor nem toca no banco — são funções puras.
+
 Abre em `http://localhost:8788` — cai na **landing** (`public/index.html`). O app (login +
 telas) fica em `public/app.html`. Login de demonstração (senha única): `Prumo@123`
 - `ana@prumo.demo` — Assistente
@@ -59,6 +69,12 @@ npx wrangler pages deploy public --project-name=prumo-fluxo --branch=master
 Pra mudanças de schema: rodar a migração nova com `--remote` antes do deploy. O secret
 `AGENDA_SHARED_KEY` já está configurado (`wrangler pages secret put`) — nunca em `[vars]`,
 senão um deploy comum reescreve por cima dele.
+
+## Segurança do login
+
+5 tentativas de senha errada seguidas travam a conta por 15 minutos — mesmo que a próxima
+tentativa use a senha certa, o login é recusado até o bloqueio acabar. Cada tentativa durante
+o bloqueio, e o próprio bloqueio, viram linha na auditoria.
 
 ## Toolbox — Agenda plugada
 

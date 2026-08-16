@@ -5,14 +5,16 @@
   "description": "Prumo — Fluxo. Plataforma-irmã do trabalho visível. Fase 0: autenticação, RBAC e auditoria.",
   "scripts": {
     "dev": "wrangler pages dev public --local --persist-to=.wrangler/state",
-    "db:migrate:local": "wrangler d1 execute prumo-fluxo-db --local --persist-to=.wrangler/state --file=./migrations/0001_init.sql && wrangler d1 execute prumo-fluxo-db --local --persist-to=.wrangler/state --file=./migrations/0003_tasks.sql && wrangler d1 execute prumo-fluxo-db --local --persist-to=.wrangler/state --file=./migrations/0005_performance.sql && wrangler d1 execute prumo-fluxo-db --local --persist-to=.wrangler/state --file=./migrations/0007_chain_step_fields.sql",
+    "db:migrate:local": "wrangler d1 execute prumo-fluxo-db --local --persist-to=.wrangler/state --file=./migrations/0001_init.sql && wrangler d1 execute prumo-fluxo-db --local --persist-to=.wrangler/state --file=./migrations/0003_tasks.sql && wrangler d1 execute prumo-fluxo-db --local --persist-to=.wrangler/state --file=./migrations/0005_performance.sql && wrangler d1 execute prumo-fluxo-db --local --persist-to=.wrangler/state --file=./migrations/0007_chain_step_fields.sql && wrangler d1 execute prumo-fluxo-db --local --persist-to=.wrangler/state --file=./migrations/0008_login_lockout.sql",
     "db:seed:local": "wrangler d1 execute prumo-fluxo-db --local --persist-to=.wrangler/state --file=./migrations/0002_seed.sql && wrangler d1 execute prumo-fluxo-db --local --persist-to=.wrangler/state --file=./migrations/0004_seed_tasks.sql && wrangler d1 execute prumo-fluxo-db --local --persist-to=.wrangler/state --file=./migrations/0006_seed_performance.sql",
-    "db:migrate:remote": "wrangler d1 execute prumo-fluxo-db --remote --file=./migrations/0001_init.sql && wrangler d1 execute prumo-fluxo-db --remote --file=./migrations/0003_tasks.sql && wrangler d1 execute prumo-fluxo-db --remote --file=./migrations/0005_performance.sql && wrangler d1 execute prumo-fluxo-db --remote --file=./migrations/0007_chain_step_fields.sql",
+    "db:migrate:remote": "wrangler d1 execute prumo-fluxo-db --remote --file=./migrations/0001_init.sql && wrangler d1 execute prumo-fluxo-db --remote --file=./migrations/0003_tasks.sql && wrangler d1 execute prumo-fluxo-db --remote --file=./migrations/0005_performance.sql && wrangler d1 execute prumo-fluxo-db --remote --file=./migrations/0007_chain_step_fields.sql && wrangler d1 execute prumo-fluxo-db --remote --file=./migrations/0008_login_lockout.sql",
     "db:seed:remote": "wrangler d1 execute prumo-fluxo-db --remote --file=./migrations/0002_seed.sql && wrangler d1 execute prumo-fluxo-db --remote --file=./migrations/0004_seed_tasks.sql && wrangler d1 execute prumo-fluxo-db --remote --file=./migrations/0006_seed_performance.sql",
     "seed:gen": "node scripts/gerar-seed.mjs && node scripts/gerar-seed-tasks.mjs && node scripts/gerar-seed-performance.mjs",
-    "deploy": "wrangler pages deploy public --project-name=prumo-fluxo"
+    "deploy": "wrangler pages deploy public --project-name=prumo-fluxo",
+    "test": "vitest run"
   },
   "devDependencies": {
+    "vitest": "^4.1.10",
     "wrangler": "^4.123.0"
   },
   "allowScripts": {
