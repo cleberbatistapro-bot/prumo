@@ -253,6 +253,7 @@
   .m-btn.danger-solid{background:var(--red);color:#fff;border-color:var(--red)}
   .m-btn.danger-solid:hover{filter:brightness(1.1)}
   .confirm-box{margin-top:14px;padding:14px 16px;border-radius:10px;background:rgba(var(--red-rgb),.08);border:1px solid rgba(var(--red-rgb),.3)}
+  .confirm-box-primary{background:var(--accent-dim);border-color:var(--accent-line)}
   .confirm-text{font-size:13px;color:var(--text);line-height:1.5;margin-bottom:12px}
   .confirm-actions{display:flex;gap:10px}
   .chain-row{border:1px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:10px;background:var(--surface-2)}
@@ -778,6 +779,12 @@ async function openTask(id){
   else assist = `<div class="assist amber"><div class="a-ico">${clockIcon}</div><div><div class="a-title">Agora com ${ownerFirst} · há ${t.heldDays} dia(s) nesta etapa</div><div class="a-text">Está na etapa de <b>${t.owner?.step}</b>, dentro do prazo. Sem ação necessária — só acompanhando para não virar gargalo.</div></div></div>`;
 
   const canManage = (me.role==="coordenador"||me.role==="gerente") && !t.done;
+  const isCurrentOwner = !t.done && t.owner?.userId===me.id;
+  const canAdvance = isCurrentOwner || canManage;
+  const isLastStep = t.currentPosition >= t.chain.length-1;
+  const nextPerson = t.chain[t.currentPosition+1];
+  const advanceLabel = isLastStep ? "Marcar como entregue" : `Passar para ${nextPerson?nextPerson.name.split(" ")[0]:"próxima etapa"}`;
+  const advanceBtn = canAdvance ? `<button class="m-btn primary" id="btnAdvanceStart" onclick="startAdvanceTask(${t.id},'${advanceLabel}',${isLastStep})">${checkIcon}${advanceLabel}</button>` : "";
   const manageBtns = canManage ? `<button class="m-btn ghost" onclick="openEditTask(${t.id})">${editIcon}Editar</button><button class="m-btn ghost danger" id="btnDeleteStart" onclick="startDeleteTask(${t.id},'${t.title.replace(/'/g,"\\'")}')">${trashIcon}Excluir</button>` : "";
 
   modal.innerHTML = `
@@ -786,9 +793,24 @@ async function openTask(id){
       <div class="m-sub"><span>Equipe do fluxo · <b>${t.chain.length} pessoas</b></span>${t.done?'':`<span>Prazo · <b>${fmtDate(t.dueDate)}</b></span><span>${countdownText(t)}</span>`}${t.tool?`<span>Ferramenta · <b>${t.tool}</b></span>`:''}</div></div>
     <div class="m-body"><div class="m-section-label">Corrente da tarefa — quem já entregou, quem está com ela agora</div>
       <div class="chain">${chain}</div>${assist}
+      <div id="advanceConfirm"></div>
       <div id="deleteConfirm"></div>
-      <div class="m-actions">${manageBtns}<button class="m-btn ghost" onclick="closeModal()">Fechar</button></div></div>`;
+      <div class="m-actions">${advanceBtn}${manageBtns}<button class="m-btn ghost" onclick="closeModal()">Fechar</button></div></div>`;
   overlay.classList.add("show");
+}
+function startAdvanceTask(id, label, isLastStep){
+  document.getElementById("advanceConfirm").innerHTML = `
+    <div class="confirm-box confirm-box-primary">
+      <div class="confirm-text">${isLastStep?"Confirmar a entrega desta tarefa?":`Confirmar: "${label}"?`}</div>
+      <div class="confirm-actions"><button class="m-btn primary" onclick="doAdvanceTask(${id})">Confirmar</button><button class="m-btn ghost" onclick="document.getElementById('advanceConfirm').innerHTML=''">Cancelar</button></div>
+    </div>`;
+}
+async function doAdvanceTask(id){
+  try{
+    await api("/api/tasks/"+id+"/advance", { method:"POST" });
+    closeModal();
+    render();
+  }catch(e){ alert(e.message); }
 }
 function closeModal(){ overlay.classList.remove("show"); }
 
