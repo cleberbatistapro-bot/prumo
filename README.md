@@ -3,6 +3,8 @@
 > O sistema operacional de uma equipe remota orientada a resultado.
 > Trabalho remoto visível **pelo processo** — não pela vigilância.
 
+**No ar:** [prumo.cleberbatistapro.com.br](https://prumo.cleberbatistapro.com.br) · login demo, senha única `Prumo@123`
+
 Prumo é formado por duas plataformas-irmãs de verdade — cada uma com banco e deploy
 próprios, conversando só por contrato de API:
 

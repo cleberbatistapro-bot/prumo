@@ -1,5 +1,7 @@
 # Prumo — Fluxo
 
+**No ar:** [prumo.cleberbatistapro.com.br](https://prumo.cleberbatistapro.com.br)
+
 Plataforma-irmã "o trabalho visível". Autenticação real, RBAC verificado no servidor, auditoria
 imutável (Fase 0 — Espinha) **e** a Linha de Produção com tarefas reais no D1 (blocos 2 e 3:
 núcleo do fluxo + corrente da tarefa) — não é mais mockup estático, é o sistema rodando de
@@ -45,14 +47,18 @@ telas) fica em `public/app.html`. Login de demonstração (senha única): `Prumo
   atual — nunca comparação entre colegas. Só Gerente acessa (`/api/performance`), com
   tentativa negada gravada na auditoria como qualquer outra.
 
-## Antes do primeiro deploy real
+## Deploy
+
+Já em produção em `prumo-fluxo` (Cloudflare Pages) + `prumo-fluxo-db` (D1), domínio custom
+`prumo.cleberbatistapro.com.br` apontado por CNAME. Pra atualizar depois de mudar código:
 
 ```bash
-npx wrangler d1 create prumo-fluxo-db
+npx wrangler pages deploy public --project-name=prumo-fluxo --branch=master
 ```
 
-Substituir `database_id` em `wrangler.toml` pelo id retornado, rodar as migrações com
-`--remote` e então `npm run deploy`.
+Pra mudanças de schema: rodar a migração nova com `--remote` antes do deploy. O secret
+`AGENDA_SHARED_KEY` já está configurado (`wrangler pages secret put`) — nunca em `[vars]`,
+senão um deploy comum reescreve por cima dele.
 
 ## Toolbox — Agenda plugada
 

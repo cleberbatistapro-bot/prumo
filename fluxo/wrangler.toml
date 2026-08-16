@@ -10,10 +10,11 @@ pages_build_output_dir = "public"
 [[d1_databases]]
 binding = "DB"
 database_name = "prumo-fluxo-db"
-database_id = "local-dev-placeholder"
+database_id = "d55348de-d3e9-48dd-9274-b742e4b624ce"
 
-# Contrato com a plataforma-irmã Agenda — só isso, nenhum acesso ao banco dela.
-# Em produção, AGENDA_SHARED_KEY vira secret (`wrangler pages secret put`), nunca [vars].
+# Contrato com a plataforma-irmã Agenda — só a URL pública fica aqui.
+# AGENDA_SHARED_KEY NÃO fica em [vars] (reescreveria o secret a cada deploy).
+# Local: .dev.vars (gitignorado) com AGENDA_URL=http://localhost:8790 e AGENDA_SHARED_KEY=prumo-dev-shared-key
+# Produção: `wrangler pages secret put AGENDA_SHARED_KEY --project-name=prumo-fluxo`
 [vars]
-AGENDA_URL = "http://localhost:8790"
-AGENDA_SHARED_KEY = "prumo-dev-shared-key"
+AGENDA_URL = "https://prumo-agenda.pages.dev"

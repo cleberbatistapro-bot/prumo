@@ -8,9 +8,9 @@ pages_build_output_dir = "public"
 [[d1_databases]]
 binding = "DB"
 database_name = "prumo-agenda-db"
-database_id = "local-dev-placeholder"
+database_id = "a1d9b125-e04f-4a02-9c7a-60a86654e8c0"
 
-# Chave compartilhada só entre as irmãs (o "contrato"). Em produção, sobrescrever com
-# `wrangler pages secret put AGENDA_SHARED_KEY`. Valor abaixo é só o default de demo local.
-[vars]
-AGENDA_SHARED_KEY = "prumo-dev-shared-key"
+# Chave compartilhada só entre as irmãs (o "contrato"). NÃO fica em [vars] — se ficasse,
+# todo `wrangler pages deploy` reescreveria por cima do secret real de produção.
+# Local: crie um arquivo `.dev.vars` (gitignorado) com AGENDA_SHARED_KEY=prumo-dev-shared-key
+# Produção: `wrangler pages secret put AGENDA_SHARED_KEY --project-name=prumo-agenda`
