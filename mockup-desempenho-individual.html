@@ -12,31 +12,31 @@
   :root{
     --bg:#0D1117; --surface:#161B22; --surface-2:#1C2128; --surface-3:#21262D;
     --border:#30363D;
-    --teal-rgb:0,231,209; --teal:#00E7D1; --teal-dim:rgba(var(--teal-rgb),.12); --teal-line:rgba(var(--teal-rgb),.35); --teal-glow:rgba(var(--teal-rgb),.08);
+    --accent-rgb:91,79,232; --accent:#5B4FE8; --accent-dim:rgba(var(--accent-rgb),.12); --accent-line:rgba(var(--accent-rgb),.35); --accent-glow:rgba(var(--accent-rgb),.08);
     --text:#E6EDF3; --muted:#8B949E; --muted-2:#6E7681;
     --red-rgb:248,81,73; --red:#F85149; --red-dim:rgba(var(--red-rgb),.13);
     --amber-rgb:227,179,65; --amber:#E3B341; --amber-dim:rgba(var(--amber-rgb),.13);
     --green-rgb:63,185,80; --green:#3FB950; --green-dim:rgba(var(--green-rgb),.13);
-    --on-teal:#04211E; --card-grad-end:#12171E; --sidebar-bg:#0B0F14; --avatar-end:#0a8f81;
+    --on-accent:#FFFFFF; --card-grad-end:#12171E; --sidebar-bg:#0B0F14; --avatar-end:#4238B8;
     --shadow-1:rgba(0,0,0,.7); --shadow-2:rgba(0,0,0,.8); --card-shadow:none;
     --radius:12px; --mono:'Inter',sans-serif; --ui:'Inter',sans-serif;
   }
   :root[data-theme="light"]{
     --bg:#E4E9ED; --surface:#FFFFFF; --surface-2:#EDF1F4; --surface-3:#DEE4E9;
     --border:#CBD3DA;
-    --teal-rgb:0,120,107; --teal:#00786B; --teal-glow:rgba(var(--teal-rgb),.06);
+    --accent-rgb:67,56,202; --accent:#4338CA; --accent-glow:rgba(var(--accent-rgb),.06);
     --text:#12181D; --muted:#4E5A64; --muted-2:#79838D;
     --red-rgb:179,38,30; --red:#B3261E;
     --amber-rgb:138,90,0; --amber:#8A5A00;
     --green-rgb:31,122,61; --green:#1F7A3D;
-    --on-teal:#FFFFFF; --card-grad-end:#FAFBFC; --sidebar-bg:#DBE1E6; --avatar-end:#00655A;
+    --on-accent:#FFFFFF; --card-grad-end:#FAFBFC; --sidebar-bg:#DBE1E6; --avatar-end:#352E96;
     --shadow-1:rgba(15,23,32,.10); --shadow-2:rgba(15,23,32,.16); --card-shadow:0 1px 3px rgba(15,23,32,.08),0 1px 2px rgba(15,23,32,.06);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   body{background:var(--bg);color:var(--text);font-family:var(--ui);-webkit-font-smoothing:antialiased;font-size:15px;line-height:1.5;transition:background .15s,color .15s}
-  ::selection{background:var(--teal);color:var(--on-teal)}
+  ::selection{background:var(--accent);color:var(--on-accent)}
   button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
-  .brand-mark svg{stroke:var(--teal)}
+  .brand-mark svg{stroke:var(--accent)}
   .top-right{margin-left:auto;display:flex;align-items:center;gap:12px}
   .theme-toggle{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:9px;border:1px solid var(--border);color:var(--muted)}
   .theme-toggle:hover{color:var(--text);border-color:var(--muted-2)}
@@ -50,20 +50,20 @@
   .sidebar{background:var(--sidebar-bg);border-right:1px solid var(--border);padding:18px 12px;position:sticky;top:0;height:100vh;overflow-y:auto}
   @media(max-width:860px){.sidebar{display:none}}
   .side-brand{display:flex;align-items:center;gap:10px;padding:4px 8px 14px}
-  .brand-mark{width:28px;height:28px;border-radius:8px;background:var(--teal-dim);border:1px solid var(--teal-line);display:grid;place-items:center}
+  .brand-mark{width:28px;height:28px;border-radius:8px;background:var(--accent-dim);border:1px solid var(--accent-line);display:grid;place-items:center}
   .brand-mark svg{width:15px;height:15px}
-  .brand-name{font-weight:800;font-size:14px}.brand-name span{color:var(--teal)}
+  .brand-name{font-weight:800;font-size:14px}.brand-name span{color:var(--accent)}
   .nav-label{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-2);padding:14px 10px 6px}
   .nav-item{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:9px;color:var(--muted);font-size:13px;font-weight:500;position:relative}
   .nav-item svg{width:16px;height:16px;opacity:.85}
-  .nav-item.active{background:var(--teal-dim);color:var(--teal)}
-  .nav-item.active::before{content:"";position:absolute;left:-12px;top:8px;bottom:8px;width:3px;background:var(--teal);border-radius:0 3px 3px 0}
+  .nav-item.active{background:var(--accent-dim);color:var(--accent)}
+  .nav-item.active::before{content:"";position:absolute;left:-12px;top:8px;bottom:8px;width:3px;background:var(--accent);border-radius:0 3px 3px 0}
 
   .main{display:flex;flex-direction:column;min-width:0}
   .topbar{display:flex;align-items:center;gap:16px;padding:13px 24px;border-bottom:1px solid var(--border)}
   .page-title{font-size:16px;font-weight:700}.page-title small{display:block;font-size:11px;color:var(--muted);font-family:var(--mono)}
   .user-chip{display:flex;align-items:center;gap:9px;padding:5px 10px 5px 6px;border:1px solid var(--border);border-radius:30px}
-  .avatar{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--avatar-end));display:grid;place-items:center;color:var(--on-teal);font-weight:700;font-size:12px;font-family:var(--mono)}
+  .avatar{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--avatar-end));display:grid;place-items:center;color:var(--on-accent);font-weight:700;font-size:12px;font-family:var(--mono)}
   .u-name{font-size:12.5px;font-weight:600;line-height:1.1}.u-role{font-size:10.5px;color:var(--muted);font-family:var(--mono)}
 
   .content{padding:22px 24px 40px;max-width:1120px}
@@ -74,7 +74,7 @@
   .members{display:flex;gap:8px;flex-wrap:wrap}
   .member{display:flex;align-items:center;gap:8px;padding:6px 12px 6px 7px;border:1px solid var(--border);border-radius:30px;font-size:13px;font-weight:600;color:var(--muted);transition:.15s}
   .member:hover{color:var(--text);border-color:var(--muted-2)}
-  .member.on{border-color:var(--teal-line);background:var(--teal-dim);color:var(--text)}
+  .member.on{border-color:var(--accent-line);background:var(--accent-dim);color:var(--text)}
   .member .m-av{width:22px;height:22px;border-radius:50%;background:var(--surface-3);display:grid;place-items:center;font-size:9px;font-weight:700;font-family:var(--mono);color:var(--text)}
   .member .sig{width:7px;height:7px;border-radius:50%}
   .periodo{margin-left:auto;font-family:var(--mono);font-size:11.5px;color:var(--muted);display:flex;align-items:center;gap:7px}
@@ -82,30 +82,30 @@
 
   /* person header */
   .person{display:flex;align-items:center;gap:14px;margin-bottom:18px}
-  .person .p-av{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;font-family:var(--mono);font-weight:700;font-size:18px;color:var(--on-teal);background:linear-gradient(135deg,var(--teal),var(--avatar-end))}
+  .person .p-av{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;font-family:var(--mono);font-weight:700;font-size:18px;color:var(--on-accent);background:linear-gradient(135deg,var(--accent),var(--avatar-end))}
   .person .p-name{font-size:19px;font-weight:800;letter-spacing:-.01em}
   .person .p-role{font-family:var(--mono);font-size:12px;color:var(--muted)}
   .sit-badge{margin-left:auto;display:flex;align-items:center;gap:8px;padding:8px 14px;border-radius:10px;font-size:12.5px;font-weight:700;font-family:var(--mono)}
   .sit-badge .d{width:8px;height:8px;border-radius:50%}
   .sit-badge.red{background:var(--red-dim);color:var(--red);border:1px solid rgba(var(--red-rgb),.3)}
   .sit-badge.green{background:var(--green-dim);color:var(--green);border:1px solid rgba(var(--green-rgb),.3)}
-  .sit-badge.teal{background:var(--teal-dim);color:var(--teal);border:1px solid var(--teal-line)}
+  .sit-badge.teal{background:var(--accent-dim);color:var(--accent);border:1px solid var(--accent-line)}
 
   /* signal callout */
   .signal{display:flex;gap:14px;align-items:flex-start;border-radius:12px;padding:16px 18px;margin-bottom:22px}
   .signal.red{background:linear-gradient(90deg,var(--red-dim),transparent);border:1px solid rgba(var(--red-rgb),.3);border-left:3px solid var(--red)}
   .signal.green{background:linear-gradient(90deg,var(--green-dim),transparent);border:1px solid rgba(var(--green-rgb),.3);border-left:3px solid var(--green)}
-  .signal.teal{background:linear-gradient(90deg,var(--teal-dim),transparent);border:1px solid var(--teal-line);border-left:3px solid var(--teal)}
+  .signal.teal{background:linear-gradient(90deg,var(--accent-dim),transparent);border:1px solid var(--accent-line);border-left:3px solid var(--accent)}
   .signal .s-ico{flex-shrink:0;width:22px;height:22px;margin-top:1px}
-  .signal.red .s-ico{color:var(--red)}.signal.green .s-ico{color:var(--green)}.signal.teal .s-ico{color:var(--teal)}
+  .signal.red .s-ico{color:var(--red)}.signal.green .s-ico{color:var(--green)}.signal.teal .s-ico{color:var(--accent)}
   .signal .s-ico svg{width:22px;height:22px}
   .signal .s-title{font-size:14.5px;font-weight:700;margin-bottom:3px}
-  .signal.red .s-title{color:var(--red)}.signal.green .s-title{color:var(--green)}.signal.teal .s-title{color:var(--teal)}
+  .signal.red .s-title{color:var(--red)}.signal.green .s-title{color:var(--green)}.signal.teal .s-title{color:var(--accent)}
   .signal .s-text{font-size:13px;color:var(--muted);line-height:1.55;max-width:70ch}
   .signal .s-actions{display:flex;gap:9px;margin-top:13px;flex-wrap:wrap}
   .s-btn{padding:8px 14px;border-radius:8px;font-size:12.5px;font-weight:700;border:1px solid var(--border);display:flex;align-items:center;gap:7px}
   .s-btn svg{width:14px;height:14px}
-  .s-btn.primary{background:var(--teal);color:var(--on-teal);border-color:var(--teal)}
+  .s-btn.primary{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
   .s-btn.primary:hover{filter:brightness(1.08)}
   .s-btn.ghost{color:var(--muted)}.s-btn.ghost:hover{color:var(--text);border-color:var(--muted-2)}
 
@@ -137,7 +137,7 @@
   .chart-wrap svg{width:100%;height:auto;display:block;margin-top:8px}
   .chart-legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px;font-size:11px;color:var(--muted)}
   .chart-legend .cl{display:flex;align-items:center;gap:7px}
-  .chart-legend .band{width:16px;height:10px;border-radius:3px;background:var(--teal-dim);border:1px dashed var(--teal-line)}
+  .chart-legend .band{width:16px;height:10px;border-radius:3px;background:var(--accent-dim);border:1px dashed var(--accent-line)}
   .chart-legend .dotm{width:9px;height:9px;border-radius:50%}
 
   /* ponto timeline */
@@ -146,18 +146,18 @@
   .ponto-note{font-size:11.5px;color:var(--muted);margin-top:12px;line-height:1.5;font-family:var(--mono)}
 
   .guardrail{display:flex;align-items:center;gap:10px;margin-top:22px;padding:13px 16px;background:var(--surface);border:1px solid var(--border);border-radius:10px}
-  .guardrail svg{width:17px;height:17px;color:var(--teal);flex-shrink:0}
+  .guardrail svg{width:17px;height:17px;color:var(--accent);flex-shrink:0}
   .guardrail p{font-size:12px;color:var(--muted);line-height:1.5}
   .guardrail b{color:var(--text)}
 
   .footer-note{text-align:center;color:var(--muted-2);font-size:11px;padding:22px 0 0;font-family:var(--mono)}
-  .footer-note span{color:var(--teal)}
+  .footer-note span{color:var(--accent)}
 </style>
 </head>
 <body>
 <div id="app">
   <aside class="sidebar">
-    <div class="side-brand"><div class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style="color:var(--teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></div><div class="brand-name">Prumo</div></div>
+    <div class="side-brand"><div class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style="color:var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></div><div class="brand-name">Prumo</div></div>
     <div class="nav-label">Operação</div>
     <div class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h6M4 12h16M14 18h6"/><circle cx="14" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="10" cy="18" r="2"/></svg><span>Linha de Produção</span></div>
     <div class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg><span>Metas do mês</span></div>
@@ -267,7 +267,7 @@ const deltaIcon={red:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
   amber:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>',
   green:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>',
   neutral:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12h14"/></svg>'};
-const toneColor={red:'var(--red)',amber:'var(--amber)',green:'var(--green)',teal:'var(--teal)',neutral:'var(--muted)'};
+const toneColor={red:'var(--red)',amber:'var(--amber)',green:'var(--green)',teal:'var(--accent)',neutral:'var(--muted)'};
 
 /* ---- chart: linha de base dela + desvio do mês ---- */
 function buildChart(ch){
@@ -282,9 +282,9 @@ function buildChart(ch){
   [70,80,90,100].forEach(v=>{ const y=yFor(v); g+=`<line x1="${x0}" y1="${y}" x2="${x1}" y2="${y}" stroke="var(--border)" stroke-width="0.75"/><text x="${x0-8}" y="${y+3}" text-anchor="end" font-family="Inter" font-size="9" fill="var(--muted-2)">${v}%</text>`; });
   // baseline band (faixa normal dela)
   const by0=yFor(ch.band[1]), by1=yFor(ch.band[0]);
-  g+=`<rect x="${x0}" y="${by0}" width="${x1-x0}" height="${by1-by0}" fill="var(--teal-dim)" />`;
-  g+=`<line x1="${x0}" y1="${yFor(ch.center)}" x2="${x1}" y2="${yFor(ch.center)}" stroke="var(--teal-line)" stroke-width="1" stroke-dasharray="4 3"/>`;
-  g+=`<text x="${x1-2}" y="${by0-6}" text-anchor="end" font-family="Inter" font-size="9" fill="var(--teal)">faixa normal dela</text>`;
+  g+=`<rect x="${x0}" y="${by0}" width="${x1-x0}" height="${by1-by0}" fill="var(--accent-dim)" />`;
+  g+=`<line x1="${x0}" y1="${yFor(ch.center)}" x2="${x1}" y2="${yFor(ch.center)}" stroke="var(--accent-line)" stroke-width="1" stroke-dasharray="4 3"/>`;
+  g+=`<text x="${x1-2}" y="${by0-6}" text-anchor="end" font-family="Inter" font-size="9" fill="var(--accent)">faixa normal dela</text>`;
   // line
   let pts=ch.series.map((v,i)=>`${xFor(i)},${yFor(v)}`).join(" ");
   g+=`<polyline points="${pts}" fill="none" stroke="var(--muted)" stroke-width="1.25"/>`;
@@ -313,13 +313,13 @@ function buildPonto(p){
   const yFor=d=> y1 - (d-dmin)/(dmax-dmin)*(y1-y0);
   let g="";
   const yBase=yFor(0);
-  g+=`<line x1="${x0}" y1="${yBase}" x2="${x1}" y2="${yBase}" stroke="var(--teal-line)" stroke-width="1" stroke-dasharray="3 3"/>`;
-  g+=`<text x="${x1}" y="${yBase-5}" text-anchor="end" font-family="Inter" font-size="8.5" fill="var(--teal)">horário habitual</text>`;
+  g+=`<line x1="${x0}" y1="${yBase}" x2="${x1}" y2="${yBase}" stroke="var(--accent-line)" stroke-width="1" stroke-dasharray="3 3"/>`;
+  g+=`<text x="${x1}" y="${yBase-5}" text-anchor="end" font-family="Inter" font-size="8.5" fill="var(--accent)">horário habitual</text>`;
   // connecting line
   let pts=devs.map((d,i)=>`${xFor(i)},${yFor(d)}`).join(" ");
   g+=`<polyline points="${pts}" fill="none" stroke="var(--border)" stroke-width="1"/>`;
   devs.forEach((d,i)=>{
-    let col='var(--teal)';
+    let col='var(--accent)';
     if(d>30)col='var(--red)'; else if(d>10)col='var(--amber)'; else if(d<-5)col='var(--green)';
     g+=`<circle cx="${xFor(i)}" cy="${yFor(d)}" r="2.75" fill="${col}"/>`;
   });
