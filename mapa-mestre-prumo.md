@@ -126,7 +126,7 @@ Cloudflare (plano gratuito), respeitando o isolamento de falhas:
 - **Pages** — frontend de cada irmã (estático, com a identidade da marca).
 - **Workers** — backend, autenticação e a API de contrato entre as irmãs.
 - **D1 (SQLite)** — um banco por irmã. Bancos separados = falha isolada.
-- **Deploys independentes** por subdomínio (ex.: `fluxo.oonatech...`, `agenda.oonatech...`).
+- **Deploys independentes** por subdomínio (ex.: `prumo.cleberbatistapro.com.br`, `prumo-agenda.pages.dev`).
 - Sem cold start relevante; SSL nativo; segredos em variáveis de ambiente.
 
 ---
