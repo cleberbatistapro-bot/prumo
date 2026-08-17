@@ -83,8 +83,14 @@ O Toolbox chama a plataforma-irmã [Agenda](../agenda/README.md) a partir de
 Agenda cair, a tela mostra "indisponível" — testado de verdade derrubando o servidor da
 Agenda com o Fluxo no ar.
 
-## Próximo bloco
+## Fase Recrutador — fechada
 
-Dados demo + acabamento visual (bloco 7, fecha a Fase Recrutador) — ver seção 5 do
-[mapa mestre](../mapa-mestre-prumo.md). Blocos 1–6 (Espinha, Fluxo núcleo, corrente da
-tarefa, Desempenho Individual, Landing, Agenda plugada) já estão fechados.
+Os 7 blocos da seção 5 do [mapa mestre](../mapa-mestre-prumo.md) estão todos entregues:
+Espinha, Fluxo núcleo, corrente da tarefa, Desempenho Individual, Landing, Agenda plugada e,
+por último, dados demo + acabamento visual (bloco 7) — sistema de design próprio (paleta cyan,
+glassmorphism, tipografia Plus Jakarta Sans/Geist, gradientes e linhas de grade sutis),
+aplicado de ponta a ponta na landing, no app, nos mockups e na Agenda.
+
+Próximo passo é fora do código: inserir o case no portfólio pessoal e usar na candidatura. Os
+itens da Fase Produto (Toolbox completo, aprovações em níveis, Pulso da operação etc.) ficam
+para quando o objetivo virar "produto vendável", não antes.
