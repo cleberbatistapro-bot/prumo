@@ -1023,6 +1023,14 @@ function showApp(){ document.getElementById("login").style.display="none"; docum
 function showLogin(){ document.getElementById("login").style.display="flex"; document.getElementById("app").classList.remove("show"); }
 
 async function boot(){
+  // Vindo da landing com ?demo=1: sempre mostra a tela de login (escolha de cargo),
+  // mesmo que já exista uma sessão válida de uma visita anterior — a demonstração
+  // depende de o visitante poder escolher o cargo, não de retomar a última sessão.
+  if(new URLSearchParams(location.search).get("demo")==="1"){
+    try{ await api("/api/auth/logout",{method:"POST"}); }catch(e){}
+    history.replaceState(null,"",location.pathname);
+    return showLogin();
+  }
   try{
     const data = await api("/api/me");
     me = data.user; showApp(); render();
